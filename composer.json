@@ -1,0 +1,21 @@
+{
+    "name": "synatos/porta",
+    "description": "OpenAPI 3.0 Validation",
+    "require": {
+        "php": "^7.1",
+        "ext-json" : "*"
+    },
+    "require-dev": {
+        "codeception/codeception": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Synatos\\Porta\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Synatos\\PortaTest\\": "tests/"
+        }
+    }
+}

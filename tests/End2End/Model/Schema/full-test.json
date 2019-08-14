@@ -1,0 +1,275 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "title": "Simple Inventory API",
+    "contact": {
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "https://virtserver.swaggerhub.com/Synatos/test/1.0.0",
+      "variables": {
+        "test": {
+          "enum": [
+            "0",
+            "2",
+            "3"
+          ],
+          "default": "d",
+          "description": "desc"
+        }
+      }
+    }
+  ],
+  "tags": [
+    {
+      "name": "security",
+      "description": "Secured Admin-only calls"
+    }
+  ],
+  "paths": {
+    "/api/security/login-with-password": {
+      "summary": "Summary of operation",
+      "description": "Description of operation",
+      "servers": [
+        {
+          "description": "test 1",
+          "url": "test2"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "P1",
+          "in": "query",
+          "description": "Says hello",
+          "allowEmptyValue": true,
+          "required": true,
+          "deprecated": true,
+          "style": "form",
+          "explode": false,
+          "allowReserved": false,
+          "schema": {
+            "$ref": "#"
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "security"
+        ],
+        "summary": "login with email an password",
+        "operationId": "securityLoginWithPassword",
+        "externalDocs": {
+          "description": "externalDocs.description",
+          "url": "externalDocs.url"
+        },
+        "parameters": [
+          {
+            "name": "operation.P1",
+            "in": "query",
+            "description": "operation.Says hello",
+            "allowEmptyValue": true,
+            "required": true,
+            "deprecated": true,
+            "style": "form",
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "$ref": "#"
+            }
+          }
+        ],
+        "deprecated": false,
+        "security": [
+          {
+            "free": [
+              "requirements"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item created",
+            "headers": {
+              "headerName": {
+                "description": "HeaderDescription",
+                "required": false,
+                "deprecated": false,
+                "allowEmptyValue": false,
+                "allowReserved": false,
+                "schema": {
+                  "type": "string"
+                },
+                "example": "example header",
+                "style": "simple",
+                "explode": false
+              }
+            },
+            "content": {
+              "c1": {
+                "schema": {
+                  "type": "array"
+                },
+                "examples": {
+                  "e1": {
+                    "summary": "summary",
+                    "description": "example description",
+                    "externalValue": "ev1",
+                    "value": "t1"
+                  }
+                },
+                "encoding": {
+                  "requestBody": {
+                    "contentType": "application/json",
+                    "headers": {
+                      "header1": {
+                        "deprecated": true,
+                        "schema": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "style": "deepObject",
+                    "allowReserved": false,
+                    "explode": false
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "NotAuthenticatedException"
+          },
+          "428": {
+            "description": "PasswordResetRequiredException"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email"
+                ],
+                "allOf": [
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "test@synatos.io"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Inventory item to add"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InventoryItem": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "manufacturer",
+          "releaseDate"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "name": {
+            "type": "string",
+            "example": "Widget Adapter"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2016-08-29T09:12:33.001Z"
+          },
+          "manufacturer": {
+            "$ref": "#/components/schemas/Manufacturer"
+          }
+        }
+      },
+      "Manufacturer": {
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "ACME Corporation"
+          },
+          "homePage": {
+            "type": "string",
+            "format": "url",
+            "example": "https://www.acme-corp.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "408-867-5309"
+          },
+          "integer": {
+            "deprecated": true,
+            "default": 28,
+            "type": "integer",
+            "minimum": 18,
+            "maximum": 19,
+            "exclusiveMinimum": true,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "nullable": false
+          },
+          "string": {
+            "type": "string",
+            "format": "datetime",
+            "minLength": 2,
+            "maxLength": 23,
+            "pattern": "pattern"
+          },
+          "array": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#"
+                },
+                {
+                  "$ref": "#2"
+                }
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 12,
+            "uniqueItems": true,
+            "additionalProperties": {
+              "type": "array"
+            }
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

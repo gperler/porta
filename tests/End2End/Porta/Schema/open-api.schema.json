@@ -1,0 +1,96 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Porta Test",
+    "version": "1.0.0",
+    "title": "Porta"
+  },
+  "paths": {
+    "/api/security/login-with-password": {
+      "summary": "login with email an password",
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 10
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfull login",
+            "headers": {
+              "core-auth-token": {
+                "$ref": "#/components/headers/AuthToken"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "Schema/User.schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "428": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "headers": {
+      "AuthToken": {
+        "description": "AuthToke",
+        "schema": {
+          "type": "string",
+          "minLength": 36
+        }
+      }
+    },
+    "responses": {
+      "Error": {
+        "description": "default error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "exception": {
+                  "type": "string"
+                },
+                "statusCode": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "stacktrace": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

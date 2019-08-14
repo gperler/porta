@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 36
+    },
+    "firstName": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 50
+    },
+    "lastName": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 50
+    }
+  }
+}

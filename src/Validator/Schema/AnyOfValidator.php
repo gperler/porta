@@ -18,7 +18,7 @@ use Synatos\Porta\Validator\ValidationMessage;
  *
  * (An instance validates successfully against this keyword if it validates successfully against at least one schema defined by this keyword's value.)
  *
- * Class OneOfValidator
+ * Class AnyOfValidator
  * @package Synatos\Porta\Validator\Schema
  */
 class AnyOfValidator implements StoppingValidator
@@ -148,7 +148,7 @@ class AnyOfValidator implements StoppingValidator
     {
         $discriminator = $this->schema->getDiscriminator();
         if ($discriminator === null) {
-            return $this->schema->getOneOf();
+            return $this->schema->getAnyOf();
         }
 
         $discriminatorSchema = $this->getDiscriminatorSchema($discriminator);
@@ -184,15 +184,15 @@ class AnyOfValidator implements StoppingValidator
     private function getDiscriminatorSchemaByValue(Discriminator $discriminator, string $discriminatorValue): ?Schema
     {
 
-        $oneOfList = $this->schema->getOneOf();
-        foreach ($oneOfList as $oneOf) {
-            $reference = $oneOf->getReference();
+        $anyOfList = $this->schema->getAnyOf();
+        foreach ($anyOfList as $anyOf) {
+            $reference = $anyOf->getReference();
             if ($reference === null) {
                 continue;
             }
             $referenceName = $reference->getLastPartOfLocalPath();
             if ($referenceName === $discriminatorValue) {
-                return $oneOf;
+                return $anyOf;
             }
         }
 
@@ -241,15 +241,6 @@ class AnyOfValidator implements StoppingValidator
         return $this->value[$propertyName];
     }
 
-
-    /**
-     * @param string $message
-     * @param string $code
-     */
-    private function unshiftValidationMessage(string $message, string $code)
-    {
-        array_unshift($this->validationMessageList, new ValidationMessage($message, $code, $this->propertyPath));
-    }
 
     /**
      * @param string $message

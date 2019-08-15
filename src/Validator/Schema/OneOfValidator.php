@@ -279,16 +279,6 @@ class OneOfValidator implements StoppingValidator
      * @param string $message
      * @param string $code
      */
-    private function unshiftValidationMessage(string $message, string $code)
-    {
-        array_unshift($this->validationMessageList, new ValidationMessage($message, $code, $this->propertyPath));
-    }
-
-
-    /**
-     * @param string $message
-     * @param string $code
-     */
     private function pushValidationMessage(string $message, string $code)
     {
         $this->validationMessageList[] = new ValidationMessage($message, $code, $this->propertyPath);

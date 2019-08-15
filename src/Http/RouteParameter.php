@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Synatos\Porta\Http;
 
-class RouteParameter implements \JsonSerializable
+use JsonSerializable;
+
+class RouteParameter implements JsonSerializable
 {
 
     /**

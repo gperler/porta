@@ -83,7 +83,7 @@ class Schema extends ArraySerializableModel
     protected $default;
 
     /**
-     * @var string|null A title will preferrably be short
+     * @var string|null A title will preferably be short
      */
     protected $title;
 

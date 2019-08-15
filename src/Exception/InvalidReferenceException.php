@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Synatos\Porta\Exception;
 
-class InvalidReferenceException extends \Exception
+use Exception;
+
+class InvalidReferenceException extends Exception
 {
     const REFERENCE_COULD_NOT_BE_RESOLVED = "Reference '%s' could not be resolved";
 

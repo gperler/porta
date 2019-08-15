@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Synatos\Porta\Validator;
 
-class ValidationMessage implements \JsonSerializable
+use JsonSerializable;
+
+class ValidationMessage implements JsonSerializable
 {
 
     const MACRO_PROPERTY = "{PROPERTY}";

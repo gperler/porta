@@ -132,7 +132,7 @@ class OpenAPI extends ArraySerializableModel
      */
     public function resolveLocalReference(Reference $reference): array
     {
-        $data = $this->jsonSerialize();
+        $data = $this->data;
         $partList = $reference->getLocalPartPartList();
         foreach ($partList as $part) {
             if (!isset($data[$part]) || !is_array($data[$part])) {

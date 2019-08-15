@@ -65,8 +65,6 @@ class AnyOfValidatorTest extends ValidationTestBase
             "role" => "909_Operator"
         ]);
 
-        $this->debug = true;
-
         // test no discriminator value
         $this->testFail($anyOfValidator, $schema, [
             "firstName" => "Richard"
@@ -81,7 +79,7 @@ class AnyOfValidatorTest extends ValidationTestBase
         // test more than one schema matched
         $schema->setDiscriminator(null);
 
-        // todo test success
+        //  more than one is ok
         $this->testSuccess($anyOfValidator, $schema, [
             "firstName" => "Richard",
             "role" => "909_Operator"

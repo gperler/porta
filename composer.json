@@ -3,7 +3,9 @@
     "description": "OpenAPI 3.0 Validation",
     "require": {
         "php": "^7.1",
-        "ext-json" : "*"
+        "ext-json" : "*",
+        "symfony/yaml" : "*",
+        "gm314/nitria" : "*"
     },
     "require-dev": {
         "codeception/codeception": "^3.0"

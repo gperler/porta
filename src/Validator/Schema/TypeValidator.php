@@ -93,7 +93,6 @@ class TypeValidator implements StoppingValidator
      */
     private function validateType(string $type, $value, array $propertyPath)
     {
-        $isValid = true;
         switch ($type) {
             case Schema::TYPE_BOOLEAN:
                 $isValid = is_bool($value) || (is_string($value) && ($value === 'true' || $value === 'false'));
@@ -131,7 +130,6 @@ class TypeValidator implements StoppingValidator
      */
     private function validateStrictTypes(string $type, $value, array $propertyPath)
     {
-        $isValid = true;
         switch ($type) {
             case Schema::TYPE_BOOLEAN:
                 $isValid = is_bool($value);

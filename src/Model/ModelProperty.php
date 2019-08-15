@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synatos\Porta\Model;
 
+use Closure;
 use Synatos\Porta\Contract\ArraySerializable;
 
 class ModelProperty
@@ -31,7 +32,7 @@ class ModelProperty
 
 
     /**
-     * @var \Closure
+     * @var Closure
      */
     private $factoryFunction;
 
@@ -50,11 +51,11 @@ class ModelProperty
      * ModelProperty constructor.
      * @param string $name
      * @param string $type
-     * @param \Closure|null $factoryFunction
+     * @param Closure|null $factoryFunction
      * @param null $defaultValue
      * @param string|null $propertyName
      */
-    public function __construct(string $name, string $type = self::TYPE_BUILD_IN, \Closure $factoryFunction = null, $defaultValue = null, string $propertyName = null)
+    public function __construct(string $name, string $type = self::TYPE_BUILD_IN, Closure $factoryFunction = null, $defaultValue = null, string $propertyName = null)
     {
         $this->name = $name;
         $this->factoryFunction = $factoryFunction;

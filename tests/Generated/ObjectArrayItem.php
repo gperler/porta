@@ -62,8 +62,19 @@ class ObjectArrayItem implements \JsonSerializable
      */
     public function fromArray(array $array)
     {
-        $this->x = $array["x"];
-        $this->y = $array["y"];
+        foreach ($array as $propertyName => $propertyValue) {
+            if ($propertyValue === null) {
+                continue;
+            }
+            switch ($propertyName) {
+                case "x":
+                    $this->x = $propertyValue;
+                    break;
+                case "y":
+                    $this->y = $propertyValue;
+                    break;
+            }
+        }
     }
 
     /**
@@ -72,10 +83,9 @@ class ObjectArrayItem implements \JsonSerializable
      */
     public function jsonSerialize() : array
     {
-        $array = [
+        return [
             "x" => $this->x,
             "y" => $this->y,
         ];
-        return $array;
     }
 }

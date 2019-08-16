@@ -4,31 +4,31 @@ declare(strict_types = 1);
 
 namespace Synatos\PortaTest\Generated;
 
-class SimpleObject implements \JsonSerializable
+class SchemaObjectAdditionalAdditionalProperties implements \JsonSerializable
 {
 
     /**
      * @var bool
      */
-    protected $prop;
+    protected $x1;
 
     /**
-     * @param bool $prop
+     * @param bool $x1
      * 
      * @return void
      */
-    public function setProp(bool $prop)
+    public function setX1(bool $x1)
     {
-        $this->prop = $prop;
+        $this->x1 = $x1;
     }
 
     /**
      * 
      * @return bool
      */
-    public function getProp() : bool
+    public function getX1() : bool
     {
-        return $this->prop;
+        return $this->x1;
     }
 
     /**
@@ -43,8 +43,8 @@ class SimpleObject implements \JsonSerializable
                 continue;
             }
             switch ($propertyName) {
-                case "prop":
-                    $this->prop = $propertyValue;
+                case "x1":
+                    $this->x1 = $propertyValue;
                     break;
             }
         }
@@ -57,7 +57,7 @@ class SimpleObject implements \JsonSerializable
     public function jsonSerialize() : array
     {
         return [
-            "prop" => $this->prop,
+            "x1" => $this->x1,
         ];
     }
 }

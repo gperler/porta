@@ -9,7 +9,6 @@ use Synatos\Porta\Model\Schema;
 
 class AdditionalProperties
 {
-
     /**
      * @var Schema|null
      */
@@ -40,14 +39,72 @@ class AdditionalProperties
     }
 
     /**
+     * @return string|null
+     */
+    public function getClassName(): string
+    {
+        $className = trim($this->type, '[]');
+        return StringUtil::getEndAfterLast($className, '\\');
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isTypePrimitive()
+    {
+        if ($this->schema === null) {
+            return true;
+        }
+        return !$this->schema->isObject() && !$this->schema->isArray();
+    }
+
+    /**
      * @return bool
      */
     public function isArray(): bool
     {
-        if ($this->type === null) {
+        if ($this->schema === null) {
             return false;
         }
-        return StringUtil::endsWith($this->type, "[]");
+        return $this->schema->isArray();
     }
 
+    /**
+     * @return bool
+     */
+    public function isObject(): bool
+    {
+        if ($this->schema === null) {
+            return false;
+        }
+        return $this->schema->isObject();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isArrayOfObjects(): bool
+    {
+        if ($this->schema === null) {
+            return false;
+        }
+
+        $itemSchema = $this->schema->getItems();
+        return $this->schema->isArray() && $itemSchema->isObject();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isArrayOfPrimitives(): bool
+    {
+        if ($this->schema === null) {
+            return false;
+        }
+
+        $itemSchema = $this->schema->getItems();
+        return $this->schema->isArray() && !$itemSchema->isObject();
+
+    }
 }

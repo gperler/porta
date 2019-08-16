@@ -66,11 +66,6 @@
     }
   },
   "additionalProperties": {
-    "type": "object",
-    "properties": {
-      "p1": {
-        "type": "boolean"
-      }
-    }
+    "type": "integer"
   }
 }

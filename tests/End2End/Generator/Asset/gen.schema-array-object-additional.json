@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "properties": {
+    "bool": {
+      "type": "boolean"
+    },
+    "int": {
+      "type": "integer"
+    },
+    "float": {
+      "type": "number"
+    },
+    "string": {
+      "type": "string"
+    },
+    "boolNullable": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "intNullable": {
+      "type": "integer",
+      "nullable": true
+    },
+    "floatNullable": {
+      "type": "number",
+      "nullable": true
+    },
+    "stringNullable": {
+      "type": "string",
+      "nullable": true
+    },
+    "enumValue": {
+      "type": "string",
+      "enum": [
+        "ASC",
+        "DESC"
+      ]
+    },
+    "simpleObject": {
+      "type": "object",
+      "properties": {
+        "prop": {
+          "type": "boolean"
+        }
+      }
+    },
+    "primitiveArray": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "objectArray": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "integer"
+          },
+          "y": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

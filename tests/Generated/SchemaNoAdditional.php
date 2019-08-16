@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Synatos\PortaTest\Generated;
 
-class SchemaGenTest implements \JsonSerializable
+class SchemaNoAdditional implements \JsonSerializable
 {
 
     const ENUM_VALUE_ASC = "ASC";
@@ -70,11 +70,6 @@ class SchemaGenTest implements \JsonSerializable
      * @var ObjectArrayItem[]
      */
     protected $objectArray;
-
-    /**
-     * @var SchemaGenTestAdditionalProperties[]
-     */
-    protected $additionalProperties;
 
     /**
      * @param bool $bool
@@ -341,50 +336,58 @@ class SchemaGenTest implements \JsonSerializable
     }
 
     /**
-     * @param SchemaGenTestAdditionalProperties[]|null $additionalProperties
-     * 
-     * @return void
-     */
-    public function setAdditionalProperties(?array $additionalProperties)
-    {
-        $this->additionalProperties = $additionalProperties;
-    }
-
-    /**
-     * 
-     * @return SchemaGenTestAdditionalProperties[]|null
-     */
-    public function getAdditionalProperties() : ?array
-    {
-        return $this->additionalProperties;
-    }
-
-    /**
      * @param array $array
      * 
      * @return void
      */
     public function fromArray(array $array)
     {
-        $this->bool = $array["bool"];
-        $this->int = $array["int"];
-        $this->float = $array["float"];
-        $this->string = $array["string"];
-        $this->boolNullable = isset($array["boolNullable"]) ? $array["boolNullable"] : null;
-        $this->intNullable = isset($array["intNullable"]) ? $array["intNullable"] : null;
-        $this->floatNullable = isset($array["floatNullable"]) ? $array["floatNullable"] : null;
-        $this->stringNullable = isset($array["stringNullable"]) ? $array["stringNullable"] : null;
-        $this->enumValue = $array["enumValue"];
-        if (isset($array["simpleObject"])) {
-            $this->simpleObject = new SimpleObject();
-            $this->simpleObject->fromArray($array["simpleObject"]);
-        }
-        $this->primitiveArray = $array["primitiveArray"];
-        if (isset($array["objectArray"])) {
-            foreach ($array["objectArray"] as $key => $item) {
-                $itemObject = new ObjectArrayItem();
-                $itemObject->fromArray($item);
-                $this->objectArray[$key] = $itemObject;
+        foreach ($array as $propertyName => $propertyValue) {
+            if ($propertyValue === null) {
+                continue;
+            }
+            switch ($propertyName) {
+                case "bool":
+                    $this->bool = $propertyValue;
+                    break;
+                case "int":
+                    $this->int = $propertyValue;
+                    break;
+                case "float":
+                    $this->float = $propertyValue;
+                    break;
+                case "string":
+                    $this->string = $propertyValue;
+                    break;
+                case "boolNullable":
+                    $this->boolNullable = $propertyValue;
+                    break;
+                case "intNullable":
+                    $this->intNullable = $propertyValue;
+                    break;
+                case "floatNullable":
+                    $this->floatNullable = $propertyValue;
+                    break;
+                case "stringNullable":
+                    $this->stringNullable = $propertyValue;
+                    break;
+                case "enumValue":
+                    $this->enumValue = $propertyValue;
+                    break;
+                case "simpleObject":
+                    $this->simpleObject = new SimpleObject();
+                    $this->simpleObject->fromArray($propertyValue);
+                    break;
+                case "primitiveArray":
+                    $this->primitiveArray = $propertyValue;
+                    break;
+                case "objectArray":
+                    foreach ($propertyValue as $key => $item) {
+                        $itemObject = new ObjectArrayItem();
+                        $itemObject->fromArray($item);
+                        $this->objectArray[$key] = $itemObject;
+                    }
+                    break;
             }
         }
     }
@@ -395,7 +398,7 @@ class SchemaGenTest implements \JsonSerializable
      */
     public function jsonSerialize() : array
     {
-        $array = [
+        return [
             "bool" => $this->bool,
             "int" => $this->int,
             "float" => $this->float,
@@ -409,6 +412,5 @@ class SchemaGenTest implements \JsonSerializable
             "primitiveArray" => $this->primitiveArray,
             "objectArray" => $this->objectArray,
         ];
-        return $array;
     }
 }

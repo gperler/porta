@@ -11,6 +11,8 @@ use Nitria\Method;
 
 class SchemaClassGenerator
 {
+    const ADDITIONAL_PROPERTIES = 'additionalProperties';
+
     /**
      * @var string
      */
@@ -203,8 +205,6 @@ class SchemaClassGenerator
         return ltrim(strtoupper(preg_replace('/[A-Z]/', '_$0', $name)), '_') . strtoupper('_' . $enumValue);
     }
 
-    const ADDITIONAL_PROPERTIES = 'additionalProperties';
-
 
     /**
      *
@@ -216,7 +216,6 @@ class SchemaClassGenerator
         }
 
         $type = $this->getAdditionalPropertiesType();
-        Debug::debug($type);
 
         $this->addAdditionalPropertiesProperty($type);
         $this->addAdditionalPropertiesSetter($type);
@@ -267,41 +266,35 @@ class SchemaClassGenerator
 
     }
 
-    /**
-     *
-     */
+
     private function addFromArray()
     {
         $method = $this->classGenerator->addPublicMethod("fromArray");
         $method->addParameter("array", "array", null, null, false);
 
+        $method->addForeachStart('$array as $propertyName => $propertyValue');
+        $method->addIfStart('$propertyValue === null');
+        $method->addCodeLine('continue;');
+        $method->addIfEnd();
 
-        foreach ($this->classPropertyList as $classProperty) {
-            if (!$classProperty->isObjectOrArrayOfObject()) {
-                $this->addPropertyFromArray($method, $classProperty);
-            }
+        $method->addSwitch('$propertyName');
 
-            if ($classProperty->isTypeObject()) {
-                $this->addObjectPropertyFromArray($method, $classProperty);
-            }
+        $this->addFromArrayClassPropertyList($method);
 
-            if ($classProperty->isArrayOfObject()) {
-                $this->addArrayOfObjectFromArray($method, $classProperty);
-            }
-        }
+        $this->addFromArrayAdditionalProperties($method);
+
+        $method->addSwitchEnd();
+
+        $method->addForeachEnd();
     }
 
     /**
      * @param Method $method
-     * @param ClassProperty $classProperty
      */
-    private function addPropertyFromArray(Method $method, ClassProperty $classProperty): void
+    private function addFromArrayClassPropertyList(Method $method)
     {
-        $name = $classProperty->getName();
-        if ($classProperty->isNullable()) {
-            $method->addCodeLine('$this->' . $name . ' = isset($array["' . $name . '"]) ? $array["' . $name . '"] : null;');
-        } else {
-            $method->addCodeLine('$this->' . $name . ' = $array["' . $name . '"];');
+        foreach ($this->classPropertyList as $classProperty) {
+            $this->addFromArrayClassProperty($method, $classProperty);
         }
     }
 
@@ -309,37 +302,98 @@ class SchemaClassGenerator
      * @param Method $method
      * @param ClassProperty $classProperty
      */
-    private function addObjectPropertyFromArray(Method $method, ClassProperty $classProperty): void
+    private function addFromArrayClassProperty(Method $method, ClassProperty $classProperty)
+    {
+        $propertyName = $classProperty->getName();
+        $method->addSwitchCase('"' . $propertyName . '"');
+
+        if ($classProperty->isTypeObject()) {
+            $this->addFromArrayObjectProperty($method, $classProperty);
+        }
+
+        if ($classProperty->isArrayOfObject()) {
+            $this->addFromArrayArrayOfObjectProperty($method, $classProperty);
+        }
+
+        if (!$classProperty->isObjectOrArrayOfObject()) {
+            $this->addFromArraySimpleProperty($method, $classProperty);
+        }
+        $method->addSwitchBreak();
+    }
+
+    /**
+     * @param Method $method
+     * @param ClassProperty $classProperty
+     */
+    private function addFromArraySimpleProperty(Method $method, ClassProperty $classProperty)
+    {
+        $propertyName = $classProperty->getName();
+        $method->addCodeLine('$this->' . $propertyName . ' = $propertyValue;');
+    }
+
+    /**
+     * @param Method $method
+     * @param ClassProperty $classProperty
+     */
+    private function addFromArrayObjectProperty(Method $method, ClassProperty $classProperty): void
     {
         $name = $classProperty->getName();
         $className = $classProperty->getClassName();
-        $method->addIfStart('isset($array["' . $name . '"])');
         $method->addCodeLine('$this->' . $name . ' = new ' . $className . '();');
-        $method->addCodeLine('$this->' . $name . '->fromArray($array["' . $name . '"]);');
-        $method->addIfEnd();
+        $method->addCodeLine('$this->' . $name . '->fromArray($propertyValue);');
     }
+
 
     /**
      * @param Method $method
      * @param ClassProperty $classProperty
      */
-    private function addArrayOfObjectFromArray(Method $method, ClassProperty $classProperty): void
+    private function addFromArrayArrayOfObjectProperty(Method $method, ClassProperty $classProperty): void
     {
         $name = $classProperty->getName();
-
         $className = $classProperty->getItemClassName();
 
-        $method->addIfStart('isset($array["' . $name . '"])');
-
-        $method->addForeachStart('$array["' . $name . '"] as $key => $item');
+        $method->addForeachStart('$propertyValue as $key => $item');
 
         $method->addCodeLine('$itemObject = new ' . $className . '();');
         $method->addCodeLine('$itemObject->fromArray($item);');
         $method->addCodeLine('$this->' . $name . '[$key] = $itemObject;');
 
         $method->addForeachEnd();
+    }
 
-        $method->addIfEnd();
+    /**
+     * @param Method $method
+     */
+    private function addFromArrayAdditionalProperties(Method $method)
+    {
+        if ($this->additionalProperties === null) {
+            return;
+        }
+
+        $method->addSwitchDefault();
+
+        if ($this->additionalProperties->isTypePrimitive() || $this->additionalProperties->isArrayOfPrimitives()) {
+            $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . '[$propertyName] = $propertyValue;');
+        }
+
+        if ($this->additionalProperties->isObject()) {
+            $className = $this->additionalProperties->getClassName();
+            $method->addCodeLine('$additionalProperty = new ' . $className . '();');
+            $method->addCodeLine('$additionalProperty->fromArray($propertyValue);');
+            $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . '[$propertyName] = $additionalProperty;');
+        }
+
+        if ($this->additionalProperties->isArrayOfObjects()) {
+            $className = $this->additionalProperties->getClassName();
+            $method->addForeachStart('$propertyValue as $key => $item');
+            $method->addCodeLine('$itemObject = new ' . $className . '();');
+            $method->addCodeLine('$itemObject->fromArray($item);');
+            $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . '[$key] = $itemObject;');
+            $method->addForeachEnd();
+        }
+
+        $method->addSwitchBreak();
     }
 
 
@@ -349,29 +403,51 @@ class SchemaClassGenerator
     private function addJsonSerialize()
     {
         $method = $this->classGenerator->addPublicMethod("jsonSerialize");
-
         $method->setReturnType("array", false);
 
-        $this->addPropertyJsonSerialize($method);
+        $this->addJsonSerializeStartArray($method);
 
-        $method->addCodeLine('return $array;');
+        $this->addJsonSerializeProperties($method);
+
+        $this->addJsonSerializeEndArray($method);
     }
-
 
     /**
      * @param Method $method
      */
-    private function addPropertyJsonSerialize(Method $method)
+    private function addJsonSerializeStartArray(Method $method)
     {
-        $method->addCodeLine('$array = [');
+        if ($this->additionalProperties === null) {
+            $method->addCodeLine('return [');
+        } else {
+            $method->addCodeLine('return array_merge([');
+        }
         $method->incrementIndent();
+    }
 
+    /**
+     * @param Method $method
+     */
+    private function addJsonSerializeProperties(Method $method)
+    {
         foreach ($this->classPropertyList as $classProperty) {
             $name = $classProperty->getName();
             $method->addCodeLine('"' . $name . '" => $this->' . $name . ',');
         }
+    }
+
+    /**
+     * @param Method $method
+     */
+    private function addJsonSerializeEndArray(Method $method)
+    {
         $method->decrementIndent();
-        $method->addCodeLine('];');
+
+        if ($this->additionalProperties === null) {
+            $method->addCodeLine('];');
+        } else {
+            $method->addCodeLine('], $this->' . self::ADDITIONAL_PROPERTIES . ');');
+        }
     }
 
 

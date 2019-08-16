@@ -8,7 +8,12 @@ The standard can be used for
 3.) Generation of Request/Response classes that allow to transfer untyped array/json to typed Objects.
 
 ## Description
-Porta is an Open API 3.0 Schema Validator for Http Requests.
+Porta is an Open API 3.0 Schema Validator for Http Requests. Key features of this implementation:
+* Validate JSON request and responses
+* Manipulate/Build Open API schema with objects
+* Register your own format validator
+* Generate Request and Response classes for the given schema
+* Compile a Open API Schema to a class.
 
 
 ## Installation
@@ -78,6 +83,40 @@ $requestBody = json_encode([
 
 $validationMessageList = $porta->validateRequest($path, $method, $header,$query, $requestBody);
 ```
+
+## Register your own format validator
+
+The Open API Specification allows to define formats to specify a datatype
+in more detail
+
+"However, format is an open value, so you can use any formats, even not those defined by the OpenAPI Specification, such as:" (Source https://swagger.io/docs/specification/data-models/data-types/#string)
+
+With porta you can register your own validator to handle formats. See the example below:
+
+```php
+
+use Synatos\Porta\Contract\Validator;
+use Synatos\Porta\Http\ContentType;
+use Synatos\Porta\Http\HttpHeader;
+use Synatos\Porta\Model\OpenAPI;
+use Synatos\Porta\Model\Schema;
+use Synatos\Porta\Porta;
+use Synatos\Porta\Validator\FormatValidatorFactory;
+
+require_once '../vendor/autoload.php';
+
+class EmailValidator implements Validator
+{
+    public function validate(Schema $schema, $value, array $propertyPath): array
+    {
+        echo "validating " . $value . PHP_EOL;
+        return [];
+    }
+}
+
+FormatValidatorFactory::addFormatValidator("email", new EmailValidator());
+```
+
 
 ## Generate PHP Class from Schema
 
@@ -246,3 +285,9 @@ $openAPI->setPaths([
     "/api/do/something" => $pathItem
 ]); 
 ```
+
+## Further Readings
+
+* Introduction https://swagger.io/docs/specification/about/
+* Open API Schema https://swagger.io/docs/specification/data-models/
+* Specification https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md

@@ -153,43 +153,6 @@
                         "type": "string",
                         "nullable": true,
                         "maxLength": 20
-                    },
-                    "customerId": {
-                        "type": "string",
-                        "nullable": true,
-                        "maxLength": 36
-                    },
-                    "employeeId": {
-                        "type": "string",
-                        "nullable": true,
-                        "maxLength": 36
-                    },
-                    "createdOn": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "updatedOn": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "deletedOn": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "createdById": {
-                        "type": "string",
-                        "nullable": true,
-                        "maxLength": 36
-                    },
-                    "updatedById": {
-                        "type": "string",
-                        "nullable": true,
-                        "maxLength": 36
-                    },
-                    "deletedById": {
-                        "type": "string",
-                        "nullable": true,
-                        "maxLength": 36
                     }
                 }
             }

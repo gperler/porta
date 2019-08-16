@@ -1,0 +1,66 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 36
+    },
+    "gender": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 1
+    },
+    "firstName": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 50
+    },
+    "lastName": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 50
+    },
+    "email": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 50
+    },
+    "password": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 100
+    },
+    "resetCode": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 100
+    },
+    "blocked": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "technicalUser": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "lastPasswordChange": {
+      "type": "string",
+      "nullable": true
+    },
+    "jwsToken": {
+      "type": "string",
+      "nullable": true
+    },
+    "locale": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 5
+    },
+    "timezone": {
+      "type": "string",
+      "nullable": true,
+      "maxLength": 20
+    }
+  }
+}

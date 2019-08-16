@@ -343,9 +343,6 @@ class SchemaNoAdditional implements \JsonSerializable
     public function fromArray(array $array)
     {
         foreach ($array as $propertyName => $propertyValue) {
-            if ($propertyValue === null) {
-                continue;
-            }
             switch ($propertyName) {
                 case "bool":
                     $this->bool = $propertyValue;
@@ -375,17 +372,21 @@ class SchemaNoAdditional implements \JsonSerializable
                     $this->enumValue = $propertyValue;
                     break;
                 case "simpleObject":
-                    $this->simpleObject = new SimpleObject();
-                    $this->simpleObject->fromArray($propertyValue);
+                    if ($propertyValue !== null) {
+                        $this->simpleObject = new SimpleObject();
+                        $this->simpleObject->fromArray($propertyValue);
+                    }
                     break;
                 case "primitiveArray":
                     $this->primitiveArray = $propertyValue;
                     break;
                 case "objectArray":
-                    foreach ($propertyValue as $key => $item) {
-                        $itemObject = new ObjectArrayItem();
-                        $itemObject->fromArray($item);
-                        $this->objectArray[$key] = $itemObject;
+                    if ($propertyValue !== null) {
+                        foreach ($propertyValue as $key => $item) {
+                            $itemObject = new ObjectArrayItem();
+                            $itemObject->fromArray($item);
+                            $this->objectArray[$key] = $itemObject;
+                        }
                     }
                     break;
             }

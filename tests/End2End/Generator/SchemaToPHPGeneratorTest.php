@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Synatos\PortaTest\End2End\Generator;
 
 use Codeception\Test\Unit;
+use Codeception\Util\Debug;
+use Symfony\Component\Console\Tests\Output\TestOutput;
 use Synatos\Porta\Generator\SchemaToPHPGenerator;
 use Synatos\Porta\Model\Schema;
 use Synatos\PortaTest\Generated\SchemaNoAdditional;
@@ -56,7 +58,7 @@ class SchemaToPHPGeneratorTest extends Unit
     public function testSchemaSimpleAdditional()
     {
         $array = array_merge(self::ARRAY_BASE, [
-            "additional1" => null,
+            "additional1" => 5,
             "additional2" => 0,
             "additional3" => 77
         ]);
@@ -66,6 +68,9 @@ class SchemaToPHPGeneratorTest extends Unit
         $object = $this->getSchemaSimpleAdditional();
         $this->assertNotNull($object);
         $object->fromArray($array);
+        Debug::debug(json_encode($array, JSON_PRETTY_PRINT));
+        Debug::debug(json_encode($object->jsonSerialize(), JSON_PRETTY_PRINT));
+
         $this->assertRoundTripEqual($array, $object->jsonSerialize());
     }
 

@@ -63,9 +63,6 @@ class ObjectArrayItem implements \JsonSerializable
     public function fromArray(array $array)
     {
         foreach ($array as $propertyName => $propertyValue) {
-            if ($propertyValue === null) {
-                continue;
-            }
             switch ($propertyName) {
                 case "x":
                     $this->x = $propertyValue;

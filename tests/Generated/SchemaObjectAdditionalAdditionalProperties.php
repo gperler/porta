@@ -39,9 +39,6 @@ class SchemaObjectAdditionalAdditionalProperties implements \JsonSerializable
     public function fromArray(array $array)
     {
         foreach ($array as $propertyName => $propertyValue) {
-            if ($propertyValue === null) {
-                continue;
-            }
             switch ($propertyName) {
                 case "x1":
                     $this->x1 = $propertyValue;

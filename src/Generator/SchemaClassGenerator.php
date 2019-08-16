@@ -273,10 +273,6 @@ class SchemaClassGenerator
         $method->addParameter("array", "array", null, null, false);
 
         $method->addForeachStart('$array as $propertyName => $propertyValue');
-        $method->addIfStart('$propertyValue === null');
-        $method->addCodeLine('continue;');
-        $method->addIfEnd();
-
         $method->addSwitch('$propertyName');
 
         $this->addFromArrayClassPropertyList($method);
@@ -308,11 +304,15 @@ class SchemaClassGenerator
         $method->addSwitchCase('"' . $propertyName . '"');
 
         if ($classProperty->isTypeObject()) {
+            $method->addIfStart('$propertyValue !== null');
             $this->addFromArrayObjectProperty($method, $classProperty);
+            $method->addIfEnd();
         }
 
         if ($classProperty->isArrayOfObject()) {
+            $method->addIfStart('$propertyValue !== null');
             $this->addFromArrayArrayOfObjectProperty($method, $classProperty);
+            $method->addIfEnd();
         }
 
         if (!$classProperty->isObjectOrArrayOfObject()) {
@@ -379,18 +379,22 @@ class SchemaClassGenerator
 
         if ($this->additionalProperties->isObject()) {
             $className = $this->additionalProperties->getClassName();
+            $method->addIfStart('$propertyValue !== null');
             $method->addCodeLine('$additionalProperty = new ' . $className . '();');
             $method->addCodeLine('$additionalProperty->fromArray($propertyValue);');
             $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . '[$propertyName] = $additionalProperty;');
+            $method->addIfEnd();
         }
 
         if ($this->additionalProperties->isArrayOfObjects()) {
             $className = $this->additionalProperties->getClassName();
+            $method->addIfStart('$propertyValue !== null');
             $method->addForeachStart('$propertyValue as $key => $item');
             $method->addCodeLine('$itemObject = new ' . $className . '();');
             $method->addCodeLine('$itemObject->fromArray($item);');
             $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . '[$key] = $itemObject;');
             $method->addForeachEnd();
+            $method->addIfEnd();
         }
 
         $method->addSwitchBreak();

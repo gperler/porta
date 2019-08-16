@@ -39,9 +39,6 @@ class SimpleObject implements \JsonSerializable
     public function fromArray(array $array)
     {
         foreach ($array as $propertyName => $propertyValue) {
-            if ($propertyValue === null) {
-                continue;
-            }
             switch ($propertyName) {
                 case "prop":
                     $this->prop = $propertyValue;

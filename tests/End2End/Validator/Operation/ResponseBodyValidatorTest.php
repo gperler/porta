@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest\Validator\Operation;
+namespace Synatos\PortaTest\End2End\Validator\Operation;
 
 use Codeception\Test\Unit;
+use Synatos\Porta\Exception\InvalidReferenceException;
+use Synatos\Porta\Exception\InvalidSchemaExceptionException;
 use Synatos\Porta\Http\ContentType;
 use Synatos\Porta\Http\HttpHeader;
 use Synatos\Porta\Http\HttpResponse;
@@ -20,6 +22,10 @@ class ResponseBodyValidatorTest extends Unit
 {
 
 
+    /**
+     * @throws InvalidReferenceException
+     * @throws InvalidSchemaExceptionException
+     */
     public function testResponseBodyValidator()
     {
         $responseBodyValidator = new ResponseBodyValidator(new DefaultReferenceResolver());

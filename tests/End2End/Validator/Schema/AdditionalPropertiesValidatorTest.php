@@ -10,7 +10,7 @@ use Synatos\Porta\Reference\DefaultReferenceResolver;
 use Synatos\Porta\Validator\Schema\AdditionalPropertiesValidator;
 use Synatos\Porta\Validator\Schema\NullableValidator;
 use Synatos\Porta\Validator\Schema\TypeValidator;
-use Synatos\PortaTest\Validator\ValidationTestBase;
+use Synatos\PortaTest\End2End\Validator\ValidationTestBase;
 
 class AdditionalPropertiesValidatorTest extends ValidationTestBase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest\Validator\Operation;
+namespace Synatos\PortaTest\End2End\Validator\Operation;
 
 use Codeception\Test\Unit;
 use Synatos\Porta\Exception\InvalidReferenceException;

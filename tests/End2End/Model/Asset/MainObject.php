@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest\Model\Asset;
+namespace Synatos\PortaTest\End2End\Model\Asset;
 
 use Synatos\Porta\Model\ArraySerializableModel;
 use Synatos\Porta\Model\ModelProperty;

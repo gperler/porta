@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest\Validator\Schema;
+namespace Synatos\PortaTest\End2End\Validator\Schema;
 
 use Synatos\Porta\Exception\InvalidSchemaExceptionException;
 use Synatos\Porta\Model\Schema;
 use Synatos\Porta\Reference\DefaultReferenceResolver;
 use Synatos\Porta\Validator\Schema\ObjectValidator;
-use Synatos\PortaTest\Validator\ValidationTestBase;
+use Synatos\PortaTest\End2End\Validator\ValidationTestBase;
 
 
 class ObjectValidatorTest extends ValidationTestBase
@@ -141,23 +141,12 @@ class ObjectValidatorTest extends ValidationTestBase
             "c" => $propertyC
         ]);
 
-//        $this->testSuccess($validator, $schema, [
-//            "a" => 19,
-//            "b" => "G",
-//            "c" => [
-//                "x" => 7
-//            ]
-//        ]);
-
-
-        $validationMessageList = $validator->validate($schema, [
+        $this->testSuccess($validator, $schema, [
             "a" => 19,
-            "b" => "d",
+            "b" => "G",
             "c" => [
-                "x" => null
+                "x" => 7
             ]
-        ], ["requestBody"]);
-
-
+        ]);
     }
 }

@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest;
+namespace Synatos\PortaTest\End2End\Model;
 
 use Codeception\Test\Unit;
-use Codeception\Util\Debug;
-use Synatos\PortaTest\Model\Asset\MainObject;
+use Synatos\PortaTest\End2End\Model\Asset\MainObject;
 
 class ArraySerializableModelTest extends Unit
 {
@@ -75,7 +74,6 @@ class ArraySerializableModelTest extends Unit
 
 
         $this->assertEquals($array, $mainObject->jsonSerialize());
-
     }
 
 

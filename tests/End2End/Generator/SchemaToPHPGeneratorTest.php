@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Synatos\PortaTest\End2End\Generator;
 
 use Codeception\Test\Unit;
+use Synatos\Porta\Exception\InvalidReferenceException;
 use Synatos\Porta\Generator\SchemaToPHPGenerator;
 use Synatos\Porta\Model\Schema;
+use Synatos\Porta\Reference\DefaultReferenceResolver;
 use Synatos\PortaTest\Generated\SchemaArrayObjectAdditional;
 use Synatos\PortaTest\Generated\SchemaArrayPrimitiveAdditional;
 use Synatos\PortaTest\Generated\SchemaNoAdditional;
@@ -44,6 +46,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      *
+     * @throws InvalidReferenceException
      */
     public function testSchemaNoAdditionalProperties()
     {
@@ -56,6 +59,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      * @return SchemaNoAdditional
+     * @throws InvalidReferenceException
      */
     private function getSchemaNoAdditional(): SchemaNoAdditional
     {
@@ -65,6 +69,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      *
+     * @throws InvalidReferenceException
      */
     public function testSchemaSimpleAdditional()
     {
@@ -83,6 +88,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      * @return SchemaSimpleAdditional
+     * @throws InvalidReferenceException
      */
     private function getSchemaSimpleAdditional(): SchemaSimpleAdditional
     {
@@ -92,6 +98,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      *
+     * @throws InvalidReferenceException
      */
     public function testSchemaObjectAdditional()
     {
@@ -114,6 +121,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      * @return SchemaObjectAdditional
+     * @throws InvalidReferenceException
      */
     private function getSchemaObjectAdditionalProperties(): SchemaObjectAdditional
     {
@@ -123,6 +131,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      *
+     * @throws InvalidReferenceException
      */
     public function testSchemaArrayPrimitiveAdditional()
     {
@@ -145,6 +154,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      * @return SchemaArrayPrimitiveAdditional
+     * @throws InvalidReferenceException
      */
     public function getSchemaArrayPrimitiveAdditionalProperties(): SchemaArrayPrimitiveAdditional
     {
@@ -153,7 +163,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
 
     /**
-     *
+     * @throws InvalidReferenceException
      */
     public function testSchemaArrayOfObjectsAdditional()
     {
@@ -174,7 +184,7 @@ class SchemaToPHPGeneratorTest extends Unit
             ]
         ]);
 
-        $object = $this->getSchemaArrayPrimitiveAdditionalProperties();
+        $object = $this->testSchemaArrayObjectAdditionalProperties();
         $this->assertNotNull($object);
         $object->fromArray($array);
         $this->assertRoundTripEqual($array, $object->jsonSerialize());
@@ -183,6 +193,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      * @return SchemaArrayObjectAdditional
+     * @throws InvalidReferenceException
      */
     private function testSchemaArrayObjectAdditionalProperties(): SchemaArrayObjectAdditional
     {
@@ -203,6 +214,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      * @return SchemaArrayPrimitiveAdditional
+     * @throws InvalidReferenceException
      */
     public function getSchemaPrimitiveArrayAdditional(): SchemaArrayPrimitiveAdditional
     {
@@ -215,13 +227,18 @@ class SchemaToPHPGeneratorTest extends Unit
      * @param string $className
      *
      * @return mixed
+     * @throws InvalidReferenceException
      */
     private function generateSchema(string $fileName, string $className)
     {
         $schema = $this->getSchema($fileName);
-        $generator = new SchemaToPHPGenerator("Synatos\PortaTest", __DIR__ . "/../../");
+
+        $referenceResolver = new DefaultReferenceResolver();
+
+        $generator = new SchemaToPHPGenerator("Synatos\PortaTest", __DIR__ . "/../../", $referenceResolver);
         $generator->generateSchema("Synatos\PortaTest\Generated", $className, $schema);
 
+        /** @noinspection PhpIncludeInspection */
         require_once __DIR__ . "/../../Generated/" . $className . ".php";
 
         $fqClassName = "Synatos\PortaTest\Generated\\" . $className;

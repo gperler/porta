@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest\Validator\Schema;
+namespace Synatos\PortaTest\End2End\Validator\Schema;
 
 use Synatos\Porta\Exception\InvalidReferenceException;
 use Synatos\Porta\Exception\InvalidSchemaExceptionException;
@@ -10,7 +10,7 @@ use Synatos\Porta\Model\Schema;
 use Synatos\Porta\Reference\DefaultReferenceResolver;
 use Synatos\Porta\Validator\Schema\AllOfValidator;
 use Synatos\Porta\Validator\Schema\NullableValidator;
-use Synatos\PortaTest\Validator\ValidationTestBase;
+use Synatos\PortaTest\End2End\Validator\ValidationTestBase;
 
 class AllOfValidatorTest extends ValidationTestBase
 {

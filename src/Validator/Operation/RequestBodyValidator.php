@@ -51,7 +51,7 @@ class RequestBodyValidator
      * @param RequestBody $requestBody
      * @param HttpRequest $httpRequest
      *
-     * @return array
+     * @return ValidationMessage[]
      * @throws InvalidReferenceException
      * @throws InvalidSchemaExceptionException
      */

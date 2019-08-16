@@ -12,6 +12,9 @@ use Synatos\Porta\Reference\DefaultReferenceLoader;
 class DefaultReferenceLoaderTest extends Unit
 {
 
+    /**
+     * @throws InvalidReferenceException
+     */
     public function testReferenceLoader()
     {
         $defaultReferenceLoader = new DefaultReferenceLoader();

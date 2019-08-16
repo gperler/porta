@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest\Model;
+namespace Synatos\PortaTest\End2End\Model;
 
 use Codeception\Test\Unit;
 use Codeception\Util\Debug;

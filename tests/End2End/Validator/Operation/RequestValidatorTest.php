@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest\Validator\Operation;
+namespace Synatos\PortaTest\End2End\Validator\Operation;
 
 use Codeception\Test\Unit;
 use Synatos\Porta\Exception\InvalidReferenceException;
@@ -16,7 +16,6 @@ use Synatos\Porta\Model\Parameter;
 use Synatos\Porta\Model\RequestBody;
 use Synatos\Porta\Model\Schema;
 use Synatos\Porta\Reference\DefaultReferenceResolver;
-use Synatos\Porta\Validator\Operation\RequestBodyValidator;
 use Synatos\Porta\Validator\Operation\RequestValidator;
 use Synatos\Porta\Validator\Schema\NullableValidator;
 use Synatos\Porta\Validator\Schema\TypeValidator;

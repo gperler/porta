@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Synatos\Porta\Generator;
 
 use Nitria\ClassGenerator;
+use RuntimeException;
 use Synatos\Porta\Model\OpenAPI;
 use Synatos\Porta\Validator\Schema\TypeValidator;
 
@@ -66,7 +67,7 @@ class OpenAPIClassGenerator
 
             return '[' . implode(',', $arrayParts) . ']';
         }
-        throw new \RuntimeException();
+        throw new RuntimeException();
     }
 
 
@@ -96,7 +97,7 @@ class OpenAPIClassGenerator
         if (is_array($item)) {
             return $this->compileArray($item);
         }
-        throw new \RuntimeException();
+        throw new RuntimeException();
     }
 
 }

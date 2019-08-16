@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Synatos\PortaTest\Validator;
+namespace Synatos\PortaTest\End2End\Validator;
 
 use Codeception\Test\Unit;
 use Codeception\Util\Debug;

@@ -19,6 +19,7 @@ use Synatos\Porta\Validator\ValidationMessage;
  * (An instance validates successfully against this keyword if it validates successfully against at least one schema defined by this keyword's value.)
  *
  * Class AnyOfValidator
+ *
  * @package Synatos\Porta\Validator\Schema
  */
 class AnyOfValidator implements StoppingValidator
@@ -67,6 +68,7 @@ class AnyOfValidator implements StoppingValidator
      */
     private $validationMessageList;
 
+
     /**
      * @param ReferenceResolver $referenceResolver
      */
@@ -80,6 +82,7 @@ class AnyOfValidator implements StoppingValidator
      * @param Schema $schema
      * @param $value
      * @param array $propertyPath
+     *
      * @return ValidationMessage[]
      * @throws InvalidReferenceException
      * @throws InvalidSchemaExceptionException
@@ -105,8 +108,10 @@ class AnyOfValidator implements StoppingValidator
         return $this->validationMessageList;
     }
 
+
     /**
      * @param array $schemaList
+     *
      * @throws InvalidReferenceException
      * @throws InvalidSchemaExceptionException
      */
@@ -128,6 +133,7 @@ class AnyOfValidator implements StoppingValidator
 
     /**
      * @param Schema $schema
+     *
      * @return ValidationMessage[]
      * @throws InvalidReferenceException
      * @throws InvalidSchemaExceptionException
@@ -138,6 +144,7 @@ class AnyOfValidator implements StoppingValidator
         $schemaValidator->validate($schema, $this->value, true, $this->propertyPath);
         return $schemaValidator->getValidationMessageList();
     }
+
 
     /**
      * @return array
@@ -159,6 +166,7 @@ class AnyOfValidator implements StoppingValidator
 
     /**
      * @param Discriminator $discriminator
+     *
      * @return mixed|Schema|null
      * @throws InvalidReferenceException
      * @throws InvalidSchemaExceptionException
@@ -173,17 +181,17 @@ class AnyOfValidator implements StoppingValidator
         if ($schema !== null) {
             return $schema;
         }
-        return $this->getDiscriminatorSchemaByValue($discriminator, $discriminatorValue);
+        return $this->getDiscriminatorSchemaByValue($discriminatorValue);
     }
 
+
     /**
-     * @param Discriminator $discriminator
      * @param string $discriminatorValue
+     *
      * @return Schema|null
      */
-    private function getDiscriminatorSchemaByValue(Discriminator $discriminator, string $discriminatorValue): ?Schema
+    private function getDiscriminatorSchemaByValue(string $discriminatorValue): ?Schema
     {
-
         $anyOfList = $this->schema->getAnyOf();
         foreach ($anyOfList as $anyOf) {
             $reference = $anyOf->getReference();
@@ -206,6 +214,7 @@ class AnyOfValidator implements StoppingValidator
     /**
      * @param Discriminator $discriminator
      * @param string $discriminatorValue
+     *
      * @return Schema|null
      * @throws InvalidReferenceException
      */
@@ -223,6 +232,7 @@ class AnyOfValidator implements StoppingValidator
 
     /**
      * @param Discriminator $discriminator
+     *
      * @return string|null
      * @throws InvalidSchemaExceptionException
      */
@@ -259,6 +269,7 @@ class AnyOfValidator implements StoppingValidator
     {
         $this->validationMessageList = array_merge($this->validationMessageList, $validationMessageList);
     }
+
 
     /**
      * @return bool

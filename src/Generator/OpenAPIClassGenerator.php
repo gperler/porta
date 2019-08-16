@@ -66,6 +66,7 @@ class OpenAPIClassGenerator
 
             return '[' . implode(',', $arrayParts) . ']';
         }
+        throw new \RuntimeException();
     }
 
 
@@ -95,6 +96,7 @@ class OpenAPIClassGenerator
         if (is_array($item)) {
             return $this->compileArray($item);
         }
+        throw new \RuntimeException();
     }
 
 }

@@ -203,17 +203,16 @@ class OneOfValidator implements StoppingValidator
         if ($schema !== null) {
             return $schema;
         }
-        return $this->getDiscriminatorSchemaByValue($discriminator, $discriminatorValue);
+        return $this->getDiscriminatorSchemaByValue($discriminatorValue);
     }
 
 
     /**
-     * @param Discriminator $discriminator
      * @param string $discriminatorValue
      *
      * @return Schema|null
      */
-    private function getDiscriminatorSchemaByValue(Discriminator $discriminator, string $discriminatorValue): ?Schema
+    private function getDiscriminatorSchemaByValue(string $discriminatorValue): ?Schema
     {
         $oneOfList = $this->schema->getOneOf();
         foreach ($oneOfList as $oneOf) {

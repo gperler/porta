@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synatos\Porta\Generator;
 
+use RuntimeException;
 use Synatos\Porta\Model\Schema;
 
 class SchemaToPHPGenerator
@@ -31,8 +32,10 @@ class SchemaToPHPGenerator
      */
     private $schemaClassGenerator;
 
+
     /**
      * SchemaToPHPGenerator constructor.
+     *
      * @param string|null $psrPrefix
      * @param string $basePath
      */
@@ -72,8 +75,11 @@ class SchemaToPHPGenerator
         $this->generateSchema($namespace, ucfirst($nextName), $nextSchema);
     }
 
+
     /**
      * @param Schema $schema
+     * @param string $className
+     *
      * @return AdditionalProperties|null
      */
     private function getAdditionalProperties(Schema $schema, string $className): ?AdditionalProperties
@@ -129,6 +135,7 @@ class SchemaToPHPGenerator
     /**
      * @param string $name
      * @param Schema $schema
+     *
      * @return string
      */
     private function getPropertyType(string $name, Schema $schema): string
@@ -164,7 +171,7 @@ class SchemaToPHPGenerator
             return $this->namespace . '\\' . $className;
         }
         $message = sprintf(self::EXCEPTION_SCHEMA_TYPE_NOT_ALLOWED, $schema->getType());
-        throw new \RuntimeException($message);
+        throw new RuntimeException($message);
     }
 
 

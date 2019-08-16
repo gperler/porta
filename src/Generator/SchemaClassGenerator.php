@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Synatos\Porta\Generator;
 
-use Codeception\Util\Debug;
 use JsonSerializable;
 use Nitria\ClassGenerator;
 use Nitria\Method;
@@ -39,8 +38,10 @@ class SchemaClassGenerator
      */
     private $additionalProperties;
 
+
     /**
      * SchemaClassGenerator constructor.
+     *
      * @param string $psrPrefix
      * @param string $basePath
      */
@@ -75,6 +76,7 @@ class SchemaClassGenerator
         $this->classGenerator->writeToPSR4($this->basePath, $this->psrPrefix);
     }
 
+
     /**
      * @param string $namespace
      * @param string $className
@@ -102,6 +104,7 @@ class SchemaClassGenerator
             $this->addConstantGetter($classProperty);
         }
     }
+
 
     /**
      * @param ClassProperty $classProperty
@@ -160,6 +163,7 @@ class SchemaClassGenerator
         }
     }
 
+
     /**
      * @param ClassProperty $classProperty
      */
@@ -176,16 +180,15 @@ class SchemaClassGenerator
         }
     }
 
+
     /**
      * @param ClassProperty $classProperty
      */
     private function addConstantGetter(ClassProperty $classProperty)
     {
-
         $name = $classProperty->getName();
 
         foreach ($classProperty->getEnumList() as $enumValue) {
-
             $constantName = $this->getEnumConstantName($name, $enumValue);
             $methodName = "is" . ucfirst($name) . ucfirst(strtolower($enumValue));
             $method = $this->classGenerator->addMethod($methodName);
@@ -198,6 +201,7 @@ class SchemaClassGenerator
     /**
      * @param string $name
      * @param $enumValue
+     *
      * @return string
      */
     private function getEnumConstantName(string $name, $enumValue): string
@@ -220,8 +224,8 @@ class SchemaClassGenerator
         $this->addAdditionalPropertiesProperty($type);
         $this->addAdditionalPropertiesSetter($type);
         $this->addAdditionalPropertiesGetter($type);
-
     }
+
 
     /**
      * @param string $type
@@ -230,6 +234,7 @@ class SchemaClassGenerator
     {
         $this->classGenerator->addProtectedProperty(self::ADDITIONAL_PROPERTIES, $type, null, null);
     }
+
 
     /**
      * @param string $type
@@ -241,6 +246,7 @@ class SchemaClassGenerator
         $setter->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . ' = $' . self::ADDITIONAL_PROPERTIES . ';');
     }
 
+
     /**
      * @param string $type
      */
@@ -249,7 +255,6 @@ class SchemaClassGenerator
         $getter = $this->classGenerator->addPublicMethod("getAdditionalProperties");
         $getter->setReturnType($type, true);
         $getter->addCodeLine('return $this->' . self::ADDITIONAL_PROPERTIES . ';');
-
     }
 
 
@@ -263,7 +268,6 @@ class SchemaClassGenerator
         }
         $type = $this->additionalProperties->getType();
         return $type === null ? 'array' : $type . '[]';
-
     }
 
 
@@ -284,6 +288,7 @@ class SchemaClassGenerator
         $method->addForeachEnd();
     }
 
+
     /**
      * @param Method $method
      */
@@ -293,6 +298,7 @@ class SchemaClassGenerator
             $this->addFromArrayClassProperty($method, $classProperty);
         }
     }
+
 
     /**
      * @param Method $method
@@ -321,6 +327,7 @@ class SchemaClassGenerator
         $method->addSwitchBreak();
     }
 
+
     /**
      * @param Method $method
      * @param ClassProperty $classProperty
@@ -330,6 +337,7 @@ class SchemaClassGenerator
         $propertyName = $classProperty->getName();
         $method->addCodeLine('$this->' . $propertyName . ' = $propertyValue;');
     }
+
 
     /**
      * @param Method $method
@@ -361,6 +369,7 @@ class SchemaClassGenerator
 
         $method->addForeachEnd();
     }
+
 
     /**
      * @param Method $method
@@ -418,6 +427,7 @@ class SchemaClassGenerator
         $this->addJsonSerializeEndArray($method);
     }
 
+
     /**
      * @param Method $method
      */
@@ -431,6 +441,7 @@ class SchemaClassGenerator
         $method->incrementIndent();
     }
 
+
     /**
      * @param Method $method
      */
@@ -441,6 +452,7 @@ class SchemaClassGenerator
             $method->addCodeLine('"' . $name . '" => $this->' . $name . ',');
         }
     }
+
 
     /**
      * @param Method $method

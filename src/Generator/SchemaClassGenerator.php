@@ -383,6 +383,8 @@ class SchemaClassGenerator
             $method->addCodeLine('$additionalProperty = new ' . $className . '();');
             $method->addCodeLine('$additionalProperty->fromArray($propertyValue);');
             $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . '[$propertyName] = $additionalProperty;');
+            $method->addIfElse();
+            $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . '[$propertyName] = null;');
             $method->addIfEnd();
         }
 

@@ -418,6 +418,8 @@ class SchemaObjectAdditional implements \JsonSerializable
                         $additionalProperty = new SchemaObjectAdditionalAdditionalProperties();
                         $additionalProperty->fromArray($propertyValue);
                         $this->additionalProperties[$propertyName] = $additionalProperty;
+                    } else {
+                        $this->additionalProperties[$propertyName] = null;
                     }
                     break;
             }

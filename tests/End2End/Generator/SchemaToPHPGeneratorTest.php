@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Synatos\PortaTest\End2End\Generator;
 
 use Codeception\Test\Unit;
-use Codeception\Util\Debug;
-use Symfony\Component\Console\Tests\Output\TestOutput;
 use Synatos\Porta\Generator\SchemaToPHPGenerator;
 use Synatos\Porta\Model\Schema;
+use Synatos\PortaTest\Generated\SchemaArrayObjectAdditional;
+use Synatos\PortaTest\Generated\SchemaArrayPrimitiveAdditional;
 use Synatos\PortaTest\Generated\SchemaNoAdditional;
+use Synatos\PortaTest\Generated\SchemaObjectAdditional;
 use Synatos\PortaTest\Generated\SchemaSimpleAdditional;
 
 class SchemaToPHPGeneratorTest extends Unit
@@ -52,26 +53,140 @@ class SchemaToPHPGeneratorTest extends Unit
         $this->assertRoundTripEqual(self::ARRAY_BASE, $object->jsonSerialize());
     }
 
+
+    /**
+     * @return SchemaNoAdditional
+     */
+    private function getSchemaNoAdditional(): SchemaNoAdditional
+    {
+        return $this->generateSchema("gen.schema-no-additional.json", "SchemaNoAdditional");
+    }
+
+
     /**
      *
      */
     public function testSchemaSimpleAdditional()
     {
         $array = array_merge(self::ARRAY_BASE, [
-            "additional1" => 5,
+            "additional1" => null,
             "additional2" => 0,
             "additional3" => 77
         ]);
 
-
-
         $object = $this->getSchemaSimpleAdditional();
         $this->assertNotNull($object);
         $object->fromArray($array);
-        Debug::debug(json_encode($array, JSON_PRETTY_PRINT));
-        Debug::debug(json_encode($object->jsonSerialize(), JSON_PRETTY_PRINT));
-
         $this->assertRoundTripEqual($array, $object->jsonSerialize());
+    }
+
+
+    /**
+     * @return SchemaSimpleAdditional
+     */
+    private function getSchemaSimpleAdditional(): SchemaSimpleAdditional
+    {
+        return $this->generateSchema("gen.schema-simple-additional.json", "SchemaSimpleAdditional");
+    }
+
+
+    /**
+     *
+     */
+    public function testSchemaObjectAdditional()
+    {
+        $array = array_merge(self::ARRAY_BASE, [
+            "additional_1" => null,
+            "additional_2" => [
+                "x1" => "x"
+            ],
+            "additional_3" => [
+                "x1" => "y"
+            ]
+        ]);
+
+        $object = $this->getSchemaObjectAdditionalProperties();
+        $this->assertNotNull($object);
+        $object->fromArray($array);
+        $this->assertRoundTripEqual($array, $object->jsonSerialize());
+    }
+
+
+    /**
+     * @return SchemaObjectAdditional
+     */
+    private function getSchemaObjectAdditionalProperties(): SchemaObjectAdditional
+    {
+        return $this->generateSchema("gen.schema-object-additional.json", "SchemaObjectAdditional");
+    }
+
+
+    /**
+     *
+     */
+    public function testSchemaArrayPrimitiveAdditional()
+    {
+        $array = array_merge(self::ARRAY_BASE, [
+            "additional_1" => null,
+            "additional_2" => [
+                "1", "2", "3"
+            ],
+            "additional_3" => [
+                "x", "y", "z"
+            ]
+        ]);
+
+        $object = $this->getSchemaArrayPrimitiveAdditionalProperties();
+        $this->assertNotNull($object);
+        $object->fromArray($array);
+        $this->assertRoundTripEqual($array, $object->jsonSerialize());
+    }
+
+
+    /**
+     * @return SchemaArrayPrimitiveAdditional
+     */
+    public function getSchemaArrayPrimitiveAdditionalProperties(): SchemaArrayPrimitiveAdditional
+    {
+        return $this->generateSchema("gen.schema-array-primitive-additional.json", "SchemaArrayPrimitiveAdditional");
+    }
+
+
+    /**
+     *
+     */
+    public function testSchemaArrayOfObjectsAdditional()
+    {
+        $array = array_merge(self::ARRAY_BASE, [
+            "additional_1" => null,
+            "additional_2" => [
+                [
+                    "x" => 7
+                ],
+                [
+                    "x" => 9
+                ]
+            ],
+            "additional_3" => [
+                [
+                    "x" => 1
+                ]
+            ]
+        ]);
+
+        $object = $this->getSchemaArrayPrimitiveAdditionalProperties();
+        $this->assertNotNull($object);
+        $object->fromArray($array);
+        $this->assertRoundTripEqual($array, $object->jsonSerialize());
+    }
+
+
+    /**
+     * @return SchemaArrayObjectAdditional
+     */
+    private function testSchemaArrayObjectAdditionalProperties(): SchemaArrayObjectAdditional
+    {
+        return $this->generateSchema("gen.schema-array-object-additional.json", "SchemaArrayObjectAdditional");
     }
 
 
@@ -86,39 +201,19 @@ class SchemaToPHPGeneratorTest extends Unit
     }
 
 
-    public function testSchemaObjectAdditionalProperties()
-    {
-        $this->generateSchema("gen.schema-object-additional.json", "SchemaObjectAdditional");
-
-    }
-
-    public function testSchemaArrayPrimitiveAdditionalProperties()
-    {
-        $this->generateSchema("gen.schema-array-primitive-additional.json", "SchemaArrayPrimitiveAdditional");
-    }
-
-    public function testSchemaArrayObjectAdditionalProperties()
-    {
-        $this->generateSchema("gen.schema-array-object-additional.json", "SchemaArrayObjectAdditional");
-    }
-
-
-    private function getSchemaNoAdditional(): SchemaNoAdditional
-    {
-        return $this->generateSchema("gen.schema-no-additional.json", "SchemaNoAdditional");
-    }
-
     /**
-     * @return SchemaSimpleAdditional
+     * @return SchemaArrayPrimitiveAdditional
      */
-    private function getSchemaSimpleAdditional(): SchemaSimpleAdditional
+    public function getSchemaPrimitiveArrayAdditional(): SchemaArrayPrimitiveAdditional
     {
-        return $this->generateSchema("gen.schema-simple-additional.json", "SchemaSimpleAdditional");
+        return $this->generateSchema("gen.schema-array-primitive-additional.json", "SchemaArrayPrimitiveAdditional");
     }
+
 
     /**
      * @param string $fileName
      * @param string $className
+     *
      * @return mixed
      */
     private function generateSchema(string $fileName, string $className)
@@ -137,6 +232,7 @@ class SchemaToPHPGeneratorTest extends Unit
 
     /**
      * @param string $fileName
+     *
      * @return Schema
      */
     private function getSchema(string $fileName): Schema
@@ -149,6 +245,5 @@ class SchemaToPHPGeneratorTest extends Unit
         $schema->fromArray($schemaArray);
 
         return $schema;
-
     }
 }

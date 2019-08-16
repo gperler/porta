@@ -64,8 +64,7 @@ class SchemaToPHPGenerator
      */
     public function generateSchema(string $namespace, string $className, Schema $schema)
     {
-        $schema = $this->referenceResolver->resolveSchema($schema);
-        if (!$schema->isObject()) {
+        if (!$schema->isObject() || $schema->isReference()) {
             return;
         }
         $this->namespace = $namespace;

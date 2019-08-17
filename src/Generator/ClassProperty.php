@@ -24,8 +24,10 @@ class ClassProperty
      */
     private $schema;
 
+
     /**
      * ClassProperty constructor.
+     *
      * @param string $name
      * @param string $type
      * @param Schema $schema
@@ -37,6 +39,7 @@ class ClassProperty
         $this->schema = $schema;
     }
 
+
     /**
      * @return string
      */
@@ -45,14 +48,17 @@ class ClassProperty
         return $this->name;
     }
 
+
     /**
      * @param string $prefix
+     *
      * @return string
      */
     public function getMethodName(string $prefix): string
     {
         return $prefix . ucfirst($this->name);
     }
+
 
     /**
      * @return string
@@ -62,6 +68,7 @@ class ClassProperty
         return ucfirst($this->name);
     }
 
+
     /**
      * @return string
      */
@@ -69,6 +76,7 @@ class ClassProperty
     {
         return ucfirst($this->name) . 'Item';
     }
+
 
     /**
      * @return bool
@@ -78,6 +86,7 @@ class ClassProperty
         return !!$this->schema->isNullable();
     }
 
+
     /**
      * @return string
      */
@@ -85,6 +94,7 @@ class ClassProperty
     {
         return $this->type;
     }
+
 
     /**
      * @return array
@@ -95,6 +105,7 @@ class ClassProperty
         return $enum ?: [];
     }
 
+
     /**
      * @return bool
      */
@@ -103,13 +114,15 @@ class ClassProperty
         return $this->schema->isString();
     }
 
+
     /**
      * @return bool
      */
     public function isTypeObject(): bool
     {
-        return $this->schema->isObject();
+        return $this->schema->isObject() || $this->schema->isReference();
     }
+
 
     /**
      * @return bool
@@ -120,8 +133,10 @@ class ClassProperty
             return false;
         }
         $itemsSchema = $this->schema->getItems();
-
-        return $itemsSchema->isObject();
+        if ($itemsSchema === null) {
+            return false;
+        }
+        return $itemsSchema->isObject() || $itemsSchema->isReference();
     }
 
 

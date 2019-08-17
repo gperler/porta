@@ -233,9 +233,7 @@ class SchemaToPHPGeneratorTest extends Unit
     {
         $schema = $this->getSchema($fileName);
 
-        $referenceResolver = new DefaultReferenceResolver();
-
-        $generator = new SchemaToPHPGenerator("Synatos\PortaTest", __DIR__ . "/../../", $referenceResolver);
+        $generator = new SchemaToPHPGenerator("Synatos\PortaTest", __DIR__ . "/../../", new ReferenceClassTestResolver());
         $generator->generateSchema("Synatos\PortaTest\Generated", $className, $schema);
 
         /** @noinspection PhpIncludeInspection */

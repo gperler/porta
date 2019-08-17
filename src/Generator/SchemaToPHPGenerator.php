@@ -181,10 +181,15 @@ class SchemaToPHPGenerator
             return "string";
         }
 
-        if ($schema->isArray()) {
+        if ($schema->isArray() && $schema->getItems() !== null) {
             $itemType = $this->getPropertyType($name . 'Item', $schema->getItems());
             return $itemType . '[]';
         }
+
+        if ($schema->isArray() && $schema->getItems() === null) {
+            return 'array';
+        }
+
 
         if ($schema->isObject()) {
             $className = ucfirst($name);

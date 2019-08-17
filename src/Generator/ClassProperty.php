@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Synatos\Porta\Generator;
 
+use Civis\Common\StringUtil;
 use Synatos\Porta\Model\Schema;
 
 class ClassProperty
@@ -65,7 +66,7 @@ class ClassProperty
      */
     public function getClassName(): string
     {
-        return ucfirst($this->name);
+        return StringUtil::getEndAfterLast($this->type, "\\");
     }
 
 

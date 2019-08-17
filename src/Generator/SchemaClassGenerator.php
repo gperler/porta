@@ -365,7 +365,10 @@ class SchemaClassGenerator
 
         $method->addCodeLine('$itemObject = new ' . $className . '();');
         $method->addCodeLine('$itemObject->fromArray($item);');
-        $method->addCodeLine('$this->' . $name . '[$key] = $itemObject;');
+        $method->addCodeLine('$this->' . $name .'[$key] = $itemObject;');
+
+
+
 
         $method->addForeachEnd();
     }
@@ -400,11 +403,18 @@ class SchemaClassGenerator
         if ($this->additionalProperties->isArrayOfObjects()) {
             $className = $this->additionalProperties->getClassName();
             $method->addIfStart('$propertyValue !== null');
+            $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES  .'[$propertyName] = [];');
+
             $method->addForeachStart('$propertyValue as $key => $item');
             $method->addCodeLine('$itemObject = new ' . $className . '();');
             $method->addCodeLine('$itemObject->fromArray($item);');
-            $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES . '[$key] = $itemObject;');
+            $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES  .'[$propertyName][$key] = $itemObject;');
             $method->addForeachEnd();
+            $method->addIfElse();
+
+            $method->addCodeLine('$this->' . self::ADDITIONAL_PROPERTIES  .'[$propertyName] = null;');
+
+
             $method->addIfEnd();
         }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Synatos\PortaTest\End2End\Generator;
 
 use Codeception\Test\Unit;
+use Codeception\Util\Debug;
 use Synatos\Porta\Exception\InvalidReferenceException;
 use Synatos\Porta\Generator\SchemaToPHPGenerator;
 use Synatos\Porta\Model\Schema;
@@ -187,6 +188,7 @@ class SchemaToPHPGeneratorTest extends Unit
         $object = $this->testSchemaArrayObjectAdditionalProperties();
         $this->assertNotNull($object);
         $object->fromArray($array);
+
         $this->assertRoundTripEqual($array, $object->jsonSerialize());
     }
 

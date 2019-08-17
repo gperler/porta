@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Synatos\PortaTest\Generated;
 
@@ -76,9 +76,10 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
      */
     protected $additionalProperties;
 
+
     /**
      * @param bool $bool
-     * 
+     *
      * @return void
      */
     public function setBool(bool $bool)
@@ -86,18 +87,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->bool = $bool;
     }
 
+
     /**
-     * 
+     *
      * @return bool
      */
-    public function getBool() : bool
+    public function getBool(): bool
     {
         return $this->bool;
     }
 
+
     /**
      * @param int $int
-     * 
+     *
      * @return void
      */
     public function setInt(int $int)
@@ -105,18 +108,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->int = $int;
     }
 
+
     /**
-     * 
+     *
      * @return int
      */
-    public function getInt() : int
+    public function getInt(): int
     {
         return $this->int;
     }
 
+
     /**
      * @param float $float
-     * 
+     *
      * @return void
      */
     public function setFloat(float $float)
@@ -124,18 +129,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->float = $float;
     }
 
+
     /**
-     * 
+     *
      * @return float
      */
-    public function getFloat() : float
+    public function getFloat(): float
     {
         return $this->float;
     }
 
+
     /**
      * @param string $string
-     * 
+     *
      * @return void
      */
     public function setString(string $string)
@@ -143,18 +150,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->string = $string;
     }
 
+
     /**
-     * 
+     *
      * @return string
      */
-    public function getString() : string
+    public function getString(): string
     {
         return $this->string;
     }
 
+
     /**
      * @param bool|null $boolNullable
-     * 
+     *
      * @return void
      */
     public function setBoolNullable(?bool $boolNullable)
@@ -162,18 +171,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->boolNullable = $boolNullable;
     }
 
+
     /**
-     * 
+     *
      * @return bool|null
      */
-    public function getBoolNullable() : ?bool
+    public function getBoolNullable(): ?bool
     {
         return $this->boolNullable;
     }
 
+
     /**
      * @param int|null $intNullable
-     * 
+     *
      * @return void
      */
     public function setIntNullable(?int $intNullable)
@@ -181,18 +192,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->intNullable = $intNullable;
     }
 
+
     /**
-     * 
+     *
      * @return int|null
      */
-    public function getIntNullable() : ?int
+    public function getIntNullable(): ?int
     {
         return $this->intNullable;
     }
 
+
     /**
      * @param float|null $floatNullable
-     * 
+     *
      * @return void
      */
     public function setFloatNullable(?float $floatNullable)
@@ -200,18 +213,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->floatNullable = $floatNullable;
     }
 
+
     /**
-     * 
+     *
      * @return float|null
      */
-    public function getFloatNullable() : ?float
+    public function getFloatNullable(): ?float
     {
         return $this->floatNullable;
     }
 
+
     /**
      * @param string|null $stringNullable
-     * 
+     *
      * @return void
      */
     public function setStringNullable(?string $stringNullable)
@@ -219,18 +234,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->stringNullable = $stringNullable;
     }
 
+
     /**
-     * 
+     *
      * @return string|null
      */
-    public function getStringNullable() : ?string
+    public function getStringNullable(): ?string
     {
         return $this->stringNullable;
     }
 
+
     /**
      * @param string $enumValue
-     * 
+     *
      * @return void
      */
     public function setEnumValue(string $enumValue)
@@ -238,17 +255,19 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->enumValue = $enumValue;
     }
 
+
     /**
-     * 
+     *
      * @return string
      */
-    public function getEnumValue() : string
+    public function getEnumValue(): string
     {
         return $this->enumValue;
     }
 
+
     /**
-     * 
+     *
      * @return void
      */
     public function setEnumValueAsc()
@@ -256,8 +275,9 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->enumValue = self::ENUM_VALUE_ASC;
     }
 
+
     /**
-     * 
+     *
      * @return void
      */
     public function setEnumValueDesc()
@@ -265,27 +285,30 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->enumValue = self::ENUM_VALUE_DESC;
     }
 
+
     /**
-     * 
+     *
      * @return bool
      */
-    public function isEnumValueAsc() : bool
+    public function isEnumValueAsc(): bool
     {
         return $this->enumValue === self::ENUM_VALUE_ASC;
     }
 
+
     /**
-     * 
+     *
      * @return bool
      */
-    public function isEnumValueDesc() : bool
+    public function isEnumValueDesc(): bool
     {
         return $this->enumValue === self::ENUM_VALUE_DESC;
     }
 
+
     /**
      * @param SimpleObject $simpleObject
-     * 
+     *
      * @return void
      */
     public function setSimpleObject(SimpleObject $simpleObject)
@@ -293,18 +316,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->simpleObject = $simpleObject;
     }
 
+
     /**
-     * 
+     *
      * @return SimpleObject
      */
-    public function getSimpleObject() : SimpleObject
+    public function getSimpleObject(): SimpleObject
     {
         return $this->simpleObject;
     }
 
+
     /**
      * @param int[] $primitiveArray
-     * 
+     *
      * @return void
      */
     public function setPrimitiveArray(array $primitiveArray)
@@ -312,18 +337,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->primitiveArray = $primitiveArray;
     }
 
+
     /**
-     * 
+     *
      * @return int[]
      */
-    public function getPrimitiveArray() : array
+    public function getPrimitiveArray(): array
     {
         return $this->primitiveArray;
     }
 
+
     /**
      * @param ObjectArrayItem[] $objectArray
-     * 
+     *
      * @return void
      */
     public function setObjectArray(array $objectArray)
@@ -331,18 +358,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->objectArray = $objectArray;
     }
 
+
     /**
-     * 
+     *
      * @return ObjectArrayItem[]
      */
-    public function getObjectArray() : array
+    public function getObjectArray(): array
     {
         return $this->objectArray;
     }
 
+
     /**
      * @param SchemaArrayObjectAdditionalAdditionalPropertiesItem[]|null $additionalProperties
-     * 
+     *
      * @return void
      */
     public function setAdditionalProperties(?array $additionalProperties)
@@ -350,18 +379,20 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
         $this->additionalProperties = $additionalProperties;
     }
 
+
     /**
-     * 
+     *
      * @return SchemaArrayObjectAdditionalAdditionalPropertiesItem[]|null
      */
-    public function getAdditionalProperties() : ?array
+    public function getAdditionalProperties(): ?array
     {
         return $this->additionalProperties;
     }
 
+
     /**
      * @param array $array
-     * 
+     *
      * @return void
      */
     public function fromArray(array $array)
@@ -415,22 +446,26 @@ class SchemaArrayObjectAdditional implements \JsonSerializable
                     break;
                 default:
                     if ($propertyValue !== null) {
+                        $this->additionalProperties[$propertyName] = [];
                         foreach ($propertyValue as $key => $item) {
                             $itemObject = new SchemaArrayObjectAdditionalAdditionalPropertiesItem();
                             $itemObject->fromArray($item);
-                            $this->additionalProperties[$key] = $itemObject;
+                            $this->additionalProperties[$propertyName][$key] = $itemObject;
                         }
+                    } else {
+                        $this->additionalProperties[$propertyName] = null;
                     }
                     break;
             }
         }
     }
 
+
     /**
-     * 
+     *
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return array_merge([
             "bool" => $this->bool,

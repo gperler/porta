@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Synatos\Porta\Generator;
 
 use RuntimeException;
-use Synatos\Porta\Contract\ReferenceResolver;
+use Synatos\Porta\Contract\ReferenceClassResolver;
 use Synatos\Porta\Exception\InvalidReferenceException;
 use Synatos\Porta\Model\Schema;
 
@@ -20,9 +20,9 @@ class SchemaToPHPGenerator
     private $classPropertyList;
 
     /**
-     * @var ReferenceResolver
+     * @var ReferenceClassResolver
      */
-    private $referenceResolver;
+    private $referenceClassResolver;
 
     /**
      * @var string
@@ -45,13 +45,13 @@ class SchemaToPHPGenerator
      *
      * @param string|null $psrPrefix
      * @param string $basePath
-     * @param ReferenceResolver $referenceResolver
+     * @param ReferenceClassResolver $referenceClassResolver
      */
-    public function __construct(?string $psrPrefix, string $basePath, ReferenceResolver $referenceResolver)
+    public function __construct(?string $psrPrefix, string $basePath, ReferenceClassResolver $referenceClassResolver)
     {
         $this->schemaClassGenerator = new SchemaClassGenerator($psrPrefix, $basePath);
         $this->additionalSchemaList = [];
-        $this->referenceResolver = $referenceResolver;
+        $this->referenceClassResolver = $referenceClassResolver;
     }
 
 
@@ -103,7 +103,6 @@ class SchemaToPHPGenerator
         if ($additionalProperties === true) {
             return new AdditionalProperties();
         }
-        $additionalProperties = $this->referenceResolver->resolveSchema($additionalProperties);
         $type = $this->getPropertyType($className . "AdditionalProperties", $additionalProperties);
 
         return new AdditionalProperties($additionalProperties, $type);
@@ -123,7 +122,6 @@ class SchemaToPHPGenerator
         }
 
         foreach ($properties as $name => $propertySchema) {
-            $propertySchema = $this->referenceResolver->resolveSchema($propertySchema);
             $type = $this->getPropertyType($name, $propertySchema);
             $this->classPropertyList[] = new ClassProperty($name, $type, $propertySchema);
         }
@@ -155,9 +153,14 @@ class SchemaToPHPGenerator
      * @param Schema $schema
      *
      * @return string
+     * @throws InvalidReferenceException
      */
     private function getPropertyType(string $name, Schema $schema): string
     {
+        if ($schema->isReference()) {
+            return $this->referenceClassResolver->getClassNameForReference($schema->getRef());
+        }
+
         if ($schema === null) {
             return "mixed";
         }

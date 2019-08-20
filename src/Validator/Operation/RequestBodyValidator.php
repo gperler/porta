@@ -55,8 +55,11 @@ class RequestBodyValidator
      * @throws InvalidReferenceException
      * @throws InvalidSchemaExceptionException
      */
-    public function validateRequestBody(RequestBody $requestBody, HttpRequest $httpRequest)
+    public function validateRequestBody(?RequestBody $requestBody, HttpRequest $httpRequest)
     {
+        if ($requestBody === null) {
+            return [];
+        }
         $this->requestBody = $this->referenceResolver->resolveRequestBody($requestBody);
         $this->httpRequest = $httpRequest;
 

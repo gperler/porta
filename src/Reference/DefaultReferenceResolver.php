@@ -13,7 +13,6 @@ use Synatos\Porta\Model\Header;
 use Synatos\Porta\Model\Link;
 use Synatos\Porta\Model\OpenAPI;
 use Synatos\Porta\Model\Parameter;
-use Synatos\Porta\Model\PathItem;
 use Synatos\Porta\Model\Reference;
 use Synatos\Porta\Model\RequestBody;
 use Synatos\Porta\Model\Response;
@@ -110,21 +109,6 @@ class DefaultReferenceResolver implements ReferenceResolver
             return $parameter;
         }
         return $this->resolve($parameter->getReference(), new Parameter());
-    }
-
-
-    /**
-     * @param PathItem $pathItem
-     *
-     * @return PathItem
-     * @throws InvalidReferenceException
-     */
-    public function resolvePathItem(PathItem $pathItem): PathItem
-    {
-        if (!$pathItem->isReference()) {
-            return $pathItem;
-        }
-        return $this->resolve($pathItem->getReference(), new PathItem());
     }
 
 

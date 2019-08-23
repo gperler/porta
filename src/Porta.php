@@ -17,6 +17,7 @@ use Synatos\Porta\Reference\DefaultReferenceLoader;
 use Synatos\Porta\Reference\DefaultReferenceResolver;
 use Synatos\Porta\Validator\Operation\RequestValidator;
 use Synatos\Porta\Validator\Operation\ResponseValidator;
+use Synatos\Porta\Validator\ValidationMessage;
 
 class Porta
 {
@@ -48,16 +49,22 @@ class Porta
 
 
     /**
-     * Main constructor.
+     * Porta constructor.
+     *
+     * @param ReferenceResolver|null $referenceResolver
      */
-    public function __construct()
+    public function __construct(ReferenceResolver $referenceResolver = null)
     {
         $this->openAPI = new OpenAPI();
         $this->referenceLoader = new DefaultReferenceLoader();
 
-        $this->referenceResolver = new DefaultReferenceResolver();
-        $this->referenceResolver->setOpenAPI($this->openAPI);
-        $this->referenceResolver->setReferenceLoader($this->referenceLoader);
+        if ($referenceResolver === null) {
+            $this->referenceResolver = new DefaultReferenceResolver();
+            $this->referenceResolver->setOpenAPI($this->openAPI);
+            $this->referenceResolver->setReferenceLoader($this->referenceLoader);
+        } else {
+            $this->referenceResolver = $referenceResolver;
+        }
 
         $this->requestValidator = new RequestValidator($this->referenceResolver);
         $this->responseValidator = new ResponseValidator($this->referenceResolver);
@@ -71,25 +78,6 @@ class Porta
     {
         $this->openAPI = $openAPI;
         $this->referenceResolver->setOpenAPI($this->openAPI);
-    }
-
-
-    /**
-     * @param ReferenceLoader $referenceLoader
-     */
-    public function setReferenceLoader(ReferenceLoader $referenceLoader)
-    {
-        $this->referenceLoader = $referenceLoader;
-        $this->referenceResolver->setReferenceLoader($referenceLoader);
-    }
-
-
-    /**
-     * @param ReferenceResolver $referenceResolver
-     */
-    public function setReferenceResolver(ReferenceResolver $referenceResolver)
-    {
-        $this->referenceResolver = $referenceResolver;
     }
 
 
@@ -154,6 +142,20 @@ class Porta
 
         $httpRequest = new HttpRequest($path, $httpMethod, $header, $routeMatcher->getRouteParameterList(), $query, $requestBody);
 
+        return $this->validateOperationRequest($operation, $httpRequest);
+    }
+
+
+    /**
+     * @param Operation $operation
+     * @param HttpRequest $httpRequest
+     *
+     * @return array|Validator\ValidationMessage[]
+     * @throws InvalidReferenceException
+     * @throws InvalidSchemaExceptionException
+     */
+    public function validateOperationRequest(Operation $operation, HttpRequest $httpRequest)
+    {
         return $this->requestValidator->validate($operation, $httpRequest);
     }
 
@@ -183,6 +185,20 @@ class Porta
 
         $httpResponse = new HttpResponse($statusCode, $responseHeader, $responseBody);
 
+        return $this->responseValidator->validateResponse($operation, $httpResponse);
+    }
+
+
+    /**
+     * @param Operation $operation
+     * @param HttpResponse $httpResponse
+     *
+     * @return ValidationMessage[]
+     * @throws InvalidReferenceException
+     * @throws InvalidSchemaExceptionException
+     */
+    public function validateOperationResponse(Operation $operation, HttpResponse $httpResponse)
+    {
         return $this->responseValidator->validateResponse($operation, $httpResponse);
     }
 

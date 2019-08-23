@@ -23,7 +23,6 @@ class PathItem extends ArraySerializableModel
 
     const METHOD_TRACE = "trace";
 
-    use ReferenceAble;
 
     /**
      * @var string|null
@@ -97,7 +96,6 @@ class PathItem extends ArraySerializableModel
         };
 
         parent::__construct([
-            new ModelProperty('$ref', ModelProperty::TYPE_BUILD_IN, null, null, 'ref'),
             new ModelProperty("summary"),
             new ModelProperty("description"),
             new ModelProperty("get", ModelProperty::TYPE_OBJECT, $createOperation),

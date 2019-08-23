@@ -10,7 +10,6 @@ use Synatos\Porta\Model\Header;
 use Synatos\Porta\Model\Link;
 use Synatos\Porta\Model\OpenAPI;
 use Synatos\Porta\Model\Parameter;
-use Synatos\Porta\Model\PathItem;
 use Synatos\Porta\Model\RequestBody;
 use Synatos\Porta\Model\Response;
 use Synatos\Porta\Model\Schema;
@@ -61,15 +60,6 @@ interface ReferenceResolver
      * @throws InvalidReferenceException
      */
     public function resolveParameter(Parameter $parameter): Parameter;
-
-
-    /**
-     * @param PathItem $pathItem
-     *
-     * @return PathItem
-     * @throws InvalidReferenceException
-     */
-    public function resolvePathItem(PathItem $pathItem): PathItem;
 
 
     /**

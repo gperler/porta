@@ -66,7 +66,7 @@ class ResponseValidator
      * @param Operation $operation
      * @param HttpResponse $httpResponse
      *
-     * @return array|ValidationMessage[]
+     * @return ValidationMessage[]
      * @throws InvalidReferenceException
      * @throws InvalidSchemaExceptionException
      */

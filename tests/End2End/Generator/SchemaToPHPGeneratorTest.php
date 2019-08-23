@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Synatos\PortaTest\End2End\Generator;
 
 use Codeception\Test\Unit;
-use Codeception\Util\Debug;
 use Synatos\Porta\Exception\InvalidReferenceException;
 use Synatos\Porta\Generator\SchemaToPHPGenerator;
 use Synatos\Porta\Model\Schema;
-use Synatos\Porta\Reference\DefaultReferenceResolver;
 use Synatos\PortaTest\Generated\SchemaArrayObjectAdditional;
 use Synatos\PortaTest\Generated\SchemaArrayPrimitiveAdditional;
 use Synatos\PortaTest\Generated\SchemaNoAdditional;

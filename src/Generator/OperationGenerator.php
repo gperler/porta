@@ -33,6 +33,7 @@ class OperationGenerator
      */
     private $operationArray;
 
+
     /**
      * @param OpenAPI $openAPI
      * @param string $className
@@ -53,12 +54,12 @@ class OperationGenerator
         $this->classGenerator->writeToPSR4($baseDir, $psrPrefix);
     }
 
+
     /**
      *
      */
     private function addRoutes()
     {
-
         $routeList = [];
         foreach ($this->openAPI->getPaths() as $route => $pathItem) {
             $routeList[] = $route;
@@ -67,6 +68,7 @@ class OperationGenerator
         $array = ArrayToString::compileArray($routeList);
         $this->classGenerator->addConstant("ROUTE_LIST", $array);
     }
+
 
     /**
      *
@@ -79,7 +81,7 @@ class OperationGenerator
 
         $method->setReturnType("array", true);
         $method->addCodeLine('$route = $this->routeMatcher->getRoute();');
-        $method->addSwitch('$httpMethod . "' . self::METHOD_PATH_SEPARATOR . '" . $route');
+        $method->addSwitch('strtolower($httpMethod) . "' . self::METHOD_PATH_SEPARATOR . '" . $route');
 
         foreach ($this->operationArray as $localId => $arrayContent) {
             $method->addSwitchCase('"' . $localId . '"');
@@ -95,8 +97,8 @@ class OperationGenerator
 
 
         $method->addCodeLine("");
-
     }
+
 
     /**
      *
@@ -134,6 +136,7 @@ class OperationGenerator
         $method->setReturnType(RouteMatcher::class, true);
         $method->addCodeLine('return $this->routeMatcher;');
     }
+
 
     /**
      *

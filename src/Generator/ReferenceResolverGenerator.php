@@ -290,8 +290,9 @@ class ReferenceResolverGenerator
         $method->addCodeLine('return $object;');
         $method->addIfEnd();
 
-        $method->addCodeLine('$object = new ' . $classNameShort . '();');
         $method->addCodeLine('$ref = $object->getRef();');
+
+        $method->addCodeLine('$object = new ' . $classNameShort . '();');
 
         $method->addSwitch('$ref');
         foreach ($objectList as $name => $object) {

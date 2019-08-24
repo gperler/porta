@@ -75,7 +75,7 @@ class ClassProperty
      */
     public function getItemClassName(): string
     {
-        return ucfirst($this->name) . 'Item';
+        return trim($this->getClassName(), '[]');
     }
 
 

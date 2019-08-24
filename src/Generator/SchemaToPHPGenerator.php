@@ -184,7 +184,7 @@ class SchemaToPHPGenerator
         if ($schema->isArray() && $schema->getItems() !== null) {
             $items = $schema->getItems();
             if ($items->isReference()) {
-                return $this->referenceClassResolver->getClassNameForReference($schema->getRef()) . '[]';
+                return $this->referenceClassResolver->getClassNameForReference($items->getRef()) . '[]';
             }
 
             $itemType = $this->getPropertyType($name . 'Item', $schema->getItems());

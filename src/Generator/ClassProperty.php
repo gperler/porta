@@ -39,7 +39,7 @@ class ClassProperty
      * @param Schema $schema
      * @param bool $nullable
      */
-    public function __construct(string $name, string $type, Schema $schema, bool $nullable)
+    public function __construct(string $name, ?string $type, Schema $schema, bool $nullable)
     {
         $this->name = $name;
         $this->type = $type;
@@ -98,7 +98,7 @@ class ClassProperty
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -128,6 +128,9 @@ class ClassProperty
      */
     public function isTypeObject(): bool
     {
+        if ($this->type === 'array') {
+            return false;
+        }
         return $this->schema->isObject() || $this->schema->isReference();
     }
 
@@ -137,6 +140,9 @@ class ClassProperty
      */
     public function isArrayOfObject(): bool
     {
+        if ($this->type === 'array') {
+            return false;
+        }
         if (!$this->schema->isArray()) {
             return false;
         }

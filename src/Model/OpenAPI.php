@@ -216,7 +216,7 @@ class OpenAPI extends ArraySerializableModel
     public function toJSONFile(string $fileName): void
     {
         $data = $this->jsonSerialize();
-        $content = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_FORCE_OBJECT);
+        $content = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         file_put_contents($fileName, $content);
     }
 

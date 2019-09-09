@@ -113,7 +113,6 @@ class PathItem extends ArraySerializableModel
                 return new Parameter();
             }),
         ]);
-        $this->servers = [];
     }
 
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Synatos\Porta\Generator;
 
-use RuntimeException;
 use Synatos\Porta\Contract\ReferenceClassResolver;
 use Synatos\Porta\Exception\InvalidReferenceException;
 use Synatos\Porta\Model\Schema;
@@ -153,10 +152,10 @@ class SchemaToPHPGenerator
      * @param string $name
      * @param Schema $schema
      *
-     * @return string
+     * @return string|null
      * @throws InvalidReferenceException
      */
-    private function getPropertyType(string $name, Schema $schema): string
+    private function getPropertyType(string $name, Schema $schema): ?string
     {
         if ($schema->isReference()) {
             return $this->referenceClassResolver->getClassNameForReference($schema->getRef());
@@ -182,31 +181,59 @@ class SchemaToPHPGenerator
             return "string";
         }
 
-        if ($schema->isArray() && $schema->getItems() !== null) {
-            $items = $schema->getItems();
-            if ($items->isReference()) {
-                return $this->referenceClassResolver->getClassNameForReference($items->getRef()) . '[]';
-            }
-
-            $itemType = $this->getPropertyType($name . 'Item', $schema->getItems());
-            return $itemType . '[]';
-        }
-
-        if ($schema->isArray() && ($schema->getItems() === null || $schema->getItems()->isAnyType())) {
-            return 'array';
-        }
-
-        if ($schema->isObject() && $schema->getAdditionalProperties() && !$schema->getProperties()) {
-            return 'array';
+        if ($schema->isArray()) {
+            return $this->getArrayType($name, $schema);
         }
 
         if ($schema->isObject()) {
-            $className = ucfirst($name);
-            $this->addAdditionalClass($className, $schema);
-            return $this->namespace . '\\' . $className;
+            return $this->getObjectType($name, $schema);
         }
-        $message = sprintf(self::EXCEPTION_SCHEMA_TYPE_NOT_ALLOWED, $schema->getType());
-        throw new RuntimeException($message);
+
+        return null;
+    }
+
+
+    /**
+     * @param string $name
+     * @param Schema $schema
+     *
+     * @return string
+     * @throws InvalidReferenceException
+     */
+    private function getArrayType(string $name, Schema $schema): string
+    {
+        $items = $schema->getItems();
+
+        if ($items === null || $items->isAnyType()) {
+            return 'array';
+        }
+
+        if ($items->isReference()) {
+            return $this->referenceClassResolver->getClassNameForReference($items->getRef()) . '[]';
+        }
+
+        $itemType = $this->getPropertyType($name . 'Item', $schema->getItems());
+        return $itemType . '[]';
+    }
+
+
+    /**
+     * @param string $name
+     * @param Schema $schema
+     *
+     * @return string
+     */
+    private function getObjectType(string $name, Schema $schema): string
+    {
+        $properties = $schema->getProperties();
+        $additionalProperties = $schema->getAdditionalProperties();
+        if ($properties === null && $additionalProperties !== null) {
+            return "array";
+        }
+
+        $className = ucfirst($name);
+        $this->addAdditionalClass($className, $schema);
+        return $this->namespace . '\\' . $className;
     }
 
 

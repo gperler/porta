@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c029353b8c185a3f1ec03764aff86c0",
+    "content-hash": "b071655743c57bfeca6fe52b7b66c3f3",
     "packages": [
         {
             "name": "gm314/common",
@@ -46,16 +46,16 @@
         },
         {
             "name": "gm314/nitria",
-            "version": "0.1.15",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gperler/nitria.git",
-                "reference": "407fbe6de81e5d0c261e4d1abbffe05ceb82d401"
+                "reference": "06727b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gperler/nitria/zipball/407fbe6de81e5d0c261e4d1abbffe05ceb82d401",
-                "reference": "407fbe6de81e5d0c261e4d1abbffe05ceb82d401",
+                "url": "https://api.github.com/repos/gperler/nitria/zipball/06727b1",
+                "reference": "06727b1",
                 "shasum": ""
             },
             "require": {
@@ -81,7 +81,7 @@
                 }
             ],
             "description": "PHP 7 Code Generator",
-            "time": "2019-08-03T11:14:21+00:00"
+            "time": "2019-09-09T14:28:00+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3429,7 +3429,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "gm314/nitria": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

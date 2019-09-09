@@ -70,6 +70,50 @@ class SchemaToPHPGeneratorTest extends Unit
      *
      * @throws InvalidReferenceException
      */
+    public function testSchemaNoTypes()
+    {
+
+
+        $object = $this->getSchemaNotTypes();
+        $this->assertNotNull($object);
+
+        $array = [
+            "bool" => "any value",
+            "array" => [],
+            "nullableArray" => null,
+            "object" => []
+        ];
+        $object->fromArray($array);
+        $this->assertRoundTripEqual($array, $object->jsonSerialize());
+
+
+        $array = [
+            "bool" => ["hello"],
+            "array" => [1,2,3],
+            "nullableArray" => [0],
+            "object" => ["x" => "y"]
+        ];
+        $object->fromArray($array);
+        $this->assertRoundTripEqual($array, $object->jsonSerialize());
+
+
+    }
+
+
+    /**
+     * @return SchemaSimpleAdditional
+     * @throws InvalidReferenceException
+     */
+    private function getSchemaNotTypes()
+    {
+        return $this->generateSchema("gen.schema-no-types.json", "SchemaNoTypes");
+    }
+
+
+    /**
+     *
+     * @throws InvalidReferenceException
+     */
     public function testSchemaSimpleAdditional()
     {
         $array = array_merge(self::ARRAY_BASE, [

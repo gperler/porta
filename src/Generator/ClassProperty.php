@@ -25,6 +25,11 @@ class ClassProperty
      */
     private $schema;
 
+    /**
+     * @var bool
+     */
+    private $nullable;
+
 
     /**
      * ClassProperty constructor.
@@ -32,12 +37,14 @@ class ClassProperty
      * @param string $name
      * @param string $type
      * @param Schema $schema
+     * @param bool $nullable
      */
-    public function __construct(string $name, string $type, Schema $schema)
+    public function __construct(string $name, string $type, Schema $schema, bool $nullable)
     {
         $this->name = $name;
         $this->type = $type;
         $this->schema = $schema;
+        $this->nullable = $nullable;
     }
 
 
@@ -84,7 +91,7 @@ class ClassProperty
      */
     public function isNullable(): bool
     {
-        return !!$this->schema->isNullable();
+        return $this->nullable;
     }
 
 

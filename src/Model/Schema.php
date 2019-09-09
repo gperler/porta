@@ -269,6 +269,7 @@ class Schema extends ArraySerializableModel
         ]);
     }
 
+
     /**
      * @param array|null $data
      */
@@ -286,6 +287,7 @@ class Schema extends ArraySerializableModel
         }
     }
 
+
     /**
      * @return array
      */
@@ -296,12 +298,22 @@ class Schema extends ArraySerializableModel
         return ArrayHelper::filterEmpty($array);
     }
 
+
     /**
      * @return bool
      */
     public function isDeprecated(): bool
     {
         return $this->deprecated;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isAnyType(): bool
+    {
+        return $this->ref === null && $this->type === null;
     }
 
 

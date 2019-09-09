@@ -123,7 +123,8 @@ class SchemaToPHPGenerator
 
         foreach ($properties as $name => $propertySchema) {
             $type = $this->getPropertyType($name, $propertySchema);
-            $this->classPropertyList[] = new ClassProperty($name, $type, $propertySchema);
+            $nullable = $this->isNullable($propertySchema);
+            $this->classPropertyList[] = new ClassProperty($name, $type, $propertySchema, $nullable);
         }
 
         $this->addSchemaListToClassPropertyList($schema->getOneOf());
@@ -191,10 +192,13 @@ class SchemaToPHPGenerator
             return $itemType . '[]';
         }
 
-        if ($schema->isArray() && $schema->getItems() === null) {
+        if ($schema->isArray() && ($schema->getItems() === null || $schema->getItems()->isAnyType())) {
             return 'array';
         }
 
+        if ($schema->isObject() && $schema->getAdditionalProperties() && !$schema->getProperties()) {
+            return 'array';
+        }
 
         if ($schema->isObject()) {
             $className = ucfirst($name);
@@ -203,6 +207,21 @@ class SchemaToPHPGenerator
         }
         $message = sprintf(self::EXCEPTION_SCHEMA_TYPE_NOT_ALLOWED, $schema->getType());
         throw new RuntimeException($message);
+    }
+
+
+    /**
+     * @param Schema $schema
+     *
+     * @return bool
+     * @throws InvalidReferenceException
+     */
+    public function isNullable(Schema $schema): bool
+    {
+        if ($schema->isReference()) {
+            return $this->referenceClassResolver->isReferenceNullable($schema->getRef());
+        }
+        return !!$schema->isNullable();
     }
 
 

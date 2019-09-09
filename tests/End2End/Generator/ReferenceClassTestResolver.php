@@ -21,4 +21,16 @@ class ReferenceClassTestResolver implements ReferenceClassResolver
     }
 
 
+    /**
+     * @param string $reference
+     *
+     * @return bool
+     * @throws InvalidReferenceException
+     */
+    public function isReferenceNullable(string $reference): bool
+    {
+        throw new InvalidReferenceException("");
+    }
+
+
 }

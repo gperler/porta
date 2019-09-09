@@ -16,4 +16,13 @@ interface ReferenceClassResolver
      * @throws InvalidReferenceException
      */
     public function getClassNameForReference(string $reference): string;
+
+
+    /**
+     * @param string $reference
+     *
+     * @return bool
+     * @throws InvalidReferenceException
+     */
+    public function isReferenceNullable(string $reference): bool;
 }

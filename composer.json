@@ -10,13 +10,13 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "*",
         "ext-json": "*",
         "symfony/yaml": "*",
-        "gm314/nitria": "dev-master#06727b1"
+        "gm314/nitria": "*"
     },
     "require-dev": {
-        "codeception/codeception": "^3.0"
+        "codeception/codeception": "4.2.*"
     },
     "autoload": {
         "psr-4": {

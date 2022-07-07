@@ -1,18 +1,26 @@
 {
     "name": "synatos/porta",
     "description": "OpenAPI 3.0 Validation",
+    "authors": [
+        {
+            "name": "synatos GmbH",
+            "email": "info@synatos.io",
+            "homepage": "https://synatos.io",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": "*",
-        "ext-json" : "*",
-        "symfony/yaml" : "*",
-        "gm314/nitria" : "*"
+        "php": "^7.1",
+        "ext-json": "*",
+        "symfony/yaml": "*",
+        "gm314/nitria": "dev-master#06727b1"
     },
     "require-dev": {
-        "codeception/codeception": "4.2.*"
+        "codeception/codeception": "^3.0"
     },
     "autoload": {
         "psr-4": {
-            "Synatos\\Porta\\" : "src/"
+            "Synatos\\Porta\\": "src/"
         }
     },
     "autoload-dev": {

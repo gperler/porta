@@ -111,7 +111,7 @@ class SchemaClassGenerator
      */
     private function addProperty(ClassProperty $classProperty)
     {
-        $this->classGenerator->addProtectedProperty($classProperty->getName(), $classProperty->getType());
+        $this->classGenerator->addProtectedProperty($classProperty->getName(), $classProperty->getType(), 'null');
     }
 
 
@@ -232,7 +232,7 @@ class SchemaClassGenerator
      */
     private function addAdditionalPropertiesProperty(string $type)
     {
-        $this->classGenerator->addProtectedProperty(self::ADDITIONAL_PROPERTIES, $type, null, null);
+        $this->classGenerator->addProtectedProperty(self::ADDITIONAL_PROPERTIES, $type, 'null', null);
     }
 
 

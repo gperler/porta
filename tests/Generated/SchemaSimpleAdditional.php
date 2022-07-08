@@ -12,359 +12,389 @@ class SchemaSimpleAdditional implements \JsonSerializable
     const ENUM_VALUE_DESC = "DESC";
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    protected $bool;
+    protected ?bool $bool = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    protected $int;
+    protected ?int $int = null;
 
     /**
-     * @var float
+     * @var float|null
      */
-    protected $float;
+    protected ?float $float = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $string;
+    protected ?string $string = null;
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    protected $boolNullable;
+    protected ?bool $boolNullable = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    protected $intNullable;
+    protected ?int $intNullable = null;
 
     /**
-     * @var float
+     * @var float|null
      */
-    protected $floatNullable;
+    protected ?float $floatNullable = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $stringNullable;
+    protected ?string $stringNullable = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $enumValue;
+    protected ?string $enumValue = null;
 
     /**
-     * @var SimpleObject
+     * @var SimpleObject|null
      */
-    protected $simpleObject;
+    protected ?SimpleObject $simpleObject = null;
 
     /**
-     * @var int[]
+     * @var int[]|null
      */
-    protected $primitiveArray;
+    protected ?array $primitiveArray = null;
 
     /**
-     * @var ObjectArrayItem[]
+     * @var ObjectArrayItem[]|null
      */
-    protected $objectArray;
+    protected ?array $objectArray = null;
 
     /**
-     * @var int[]
+     * @var int[]|null
      */
-    protected $additionalProperties;
+    protected ?array $additionalProperties = null;
 
     /**
      * @param bool $bool
      * 
      * @return void
      */
-    public function setBool(bool $bool)
+    public function setBool(bool $bool): void
     {
         $this->bool = $bool;
     }
+
 
     /**
      * 
      * @return bool
      */
-    public function getBool() : bool
+    public function getBool(): bool
     {
         return $this->bool;
     }
+
 
     /**
      * @param int $int
      * 
      * @return void
      */
-    public function setInt(int $int)
+    public function setInt(int $int): void
     {
         $this->int = $int;
     }
+
 
     /**
      * 
      * @return int
      */
-    public function getInt() : int
+    public function getInt(): int
     {
         return $this->int;
     }
+
 
     /**
      * @param float $float
      * 
      * @return void
      */
-    public function setFloat(float $float)
+    public function setFloat(float $float): void
     {
         $this->float = $float;
     }
+
 
     /**
      * 
      * @return float
      */
-    public function getFloat() : float
+    public function getFloat(): float
     {
         return $this->float;
     }
+
 
     /**
      * @param string $string
      * 
      * @return void
      */
-    public function setString(string $string)
+    public function setString(string $string): void
     {
         $this->string = $string;
     }
+
 
     /**
      * 
      * @return string
      */
-    public function getString() : string
+    public function getString(): string
     {
         return $this->string;
     }
+
 
     /**
      * @param bool|null $boolNullable
      * 
      * @return void
      */
-    public function setBoolNullable(?bool $boolNullable)
+    public function setBoolNullable(?bool $boolNullable): void
     {
         $this->boolNullable = $boolNullable;
     }
+
 
     /**
      * 
      * @return bool|null
      */
-    public function getBoolNullable() : ?bool
+    public function getBoolNullable(): ?bool
     {
         return $this->boolNullable;
     }
+
 
     /**
      * @param int|null $intNullable
      * 
      * @return void
      */
-    public function setIntNullable(?int $intNullable)
+    public function setIntNullable(?int $intNullable): void
     {
         $this->intNullable = $intNullable;
     }
+
 
     /**
      * 
      * @return int|null
      */
-    public function getIntNullable() : ?int
+    public function getIntNullable(): ?int
     {
         return $this->intNullable;
     }
+
 
     /**
      * @param float|null $floatNullable
      * 
      * @return void
      */
-    public function setFloatNullable(?float $floatNullable)
+    public function setFloatNullable(?float $floatNullable): void
     {
         $this->floatNullable = $floatNullable;
     }
+
 
     /**
      * 
      * @return float|null
      */
-    public function getFloatNullable() : ?float
+    public function getFloatNullable(): ?float
     {
         return $this->floatNullable;
     }
+
 
     /**
      * @param string|null $stringNullable
      * 
      * @return void
      */
-    public function setStringNullable(?string $stringNullable)
+    public function setStringNullable(?string $stringNullable): void
     {
         $this->stringNullable = $stringNullable;
     }
+
 
     /**
      * 
      * @return string|null
      */
-    public function getStringNullable() : ?string
+    public function getStringNullable(): ?string
     {
         return $this->stringNullable;
     }
+
 
     /**
      * @param string $enumValue
      * 
      * @return void
      */
-    public function setEnumValue(string $enumValue)
+    public function setEnumValue(string $enumValue): void
     {
         $this->enumValue = $enumValue;
     }
+
 
     /**
      * 
      * @return string
      */
-    public function getEnumValue() : string
+    public function getEnumValue(): string
     {
         return $this->enumValue;
     }
 
+
     /**
      * 
      * @return void
      */
-    public function setEnumValueAsc()
+    public function setEnumValueAsc(): void
     {
         $this->enumValue = self::ENUM_VALUE_ASC;
     }
 
+
     /**
      * 
      * @return void
      */
-    public function setEnumValueDesc()
+    public function setEnumValueDesc(): void
     {
         $this->enumValue = self::ENUM_VALUE_DESC;
     }
 
-    /**
-     * 
-     * @return bool
-     */
-    public function isEnumValueAsc() : bool
-    {
-        return $this->enumValue === self::ENUM_VALUE_ASC;
-    }
 
     /**
      * 
      * @return bool
      */
-    public function isEnumValueDesc() : bool
+    public function isEnumValueAsc(): bool
+    {
+        return $this->enumValue === self::ENUM_VALUE_ASC;
+    }
+
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isEnumValueDesc(): bool
     {
         return $this->enumValue === self::ENUM_VALUE_DESC;
     }
+
 
     /**
      * @param SimpleObject $simpleObject
      * 
      * @return void
      */
-    public function setSimpleObject(SimpleObject $simpleObject)
+    public function setSimpleObject(SimpleObject $simpleObject): void
     {
         $this->simpleObject = $simpleObject;
     }
+
 
     /**
      * 
      * @return SimpleObject
      */
-    public function getSimpleObject() : SimpleObject
+    public function getSimpleObject(): SimpleObject
     {
         return $this->simpleObject;
     }
+
 
     /**
      * @param int[] $primitiveArray
      * 
      * @return void
      */
-    public function setPrimitiveArray(array $primitiveArray)
+    public function setPrimitiveArray(array $primitiveArray): void
     {
         $this->primitiveArray = $primitiveArray;
     }
+
 
     /**
      * 
      * @return int[]
      */
-    public function getPrimitiveArray() : array
+    public function getPrimitiveArray(): array
     {
         return $this->primitiveArray;
     }
+
 
     /**
      * @param ObjectArrayItem[] $objectArray
      * 
      * @return void
      */
-    public function setObjectArray(array $objectArray)
+    public function setObjectArray(array $objectArray): void
     {
         $this->objectArray = $objectArray;
     }
+
 
     /**
      * 
      * @return ObjectArrayItem[]
      */
-    public function getObjectArray() : array
+    public function getObjectArray(): array
     {
         return $this->objectArray;
     }
+
 
     /**
      * @param int[]|null $additionalProperties
      * 
      * @return void
      */
-    public function setAdditionalProperties(?array $additionalProperties)
+    public function setAdditionalProperties(?array $additionalProperties): void
     {
         $this->additionalProperties = $additionalProperties;
     }
+
 
     /**
      * 
      * @return int[]|null
      */
-    public function getAdditionalProperties() : ?array
+    public function getAdditionalProperties(): ?array
     {
         return $this->additionalProperties;
     }
+
 
     /**
      * @param array $array
      * 
      * @return void
      */
-    public function fromArray(array $array)
+    public function fromArray(array $array): void
     {
         foreach ($array as $propertyName => $propertyValue) {
             switch ($propertyName) {
@@ -420,11 +450,12 @@ class SchemaSimpleAdditional implements \JsonSerializable
         }
     }
 
+
     /**
      * 
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return array_merge([
             "bool" => $this->bool,
@@ -441,4 +472,5 @@ class SchemaSimpleAdditional implements \JsonSerializable
             "objectArray" => $this->objectArray,
         ], $this->additionalProperties);
     }
+
 }

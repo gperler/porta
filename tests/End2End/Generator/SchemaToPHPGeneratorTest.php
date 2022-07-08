@@ -148,10 +148,10 @@ class SchemaToPHPGeneratorTest extends Unit
         $array = array_merge(self::ARRAY_BASE, [
             "additional_1" => null,
             "additional_2" => [
-                "x1" => "x"
+                "x1" => false
             ],
             "additional_3" => [
-                "x1" => "y"
+                "x1" => true
             ]
         ]);
 

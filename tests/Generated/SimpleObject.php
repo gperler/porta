@@ -8,35 +8,37 @@ class SimpleObject implements \JsonSerializable
 {
 
     /**
-     * @var bool
+     * @var bool|null
      */
-    protected $prop;
+    protected ?bool $prop = null;
 
     /**
      * @param bool $prop
      * 
      * @return void
      */
-    public function setProp(bool $prop)
+    public function setProp(bool $prop): void
     {
         $this->prop = $prop;
     }
+
 
     /**
      * 
      * @return bool
      */
-    public function getProp() : bool
+    public function getProp(): bool
     {
         return $this->prop;
     }
+
 
     /**
      * @param array $array
      * 
      * @return void
      */
-    public function fromArray(array $array)
+    public function fromArray(array $array): void
     {
         foreach ($array as $propertyName => $propertyValue) {
             switch ($propertyName) {
@@ -47,14 +49,16 @@ class SimpleObject implements \JsonSerializable
         }
     }
 
+
     /**
      * 
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             "prop" => $this->prop,
         ];
     }
+
 }

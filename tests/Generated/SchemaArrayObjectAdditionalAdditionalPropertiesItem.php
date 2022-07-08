@@ -8,35 +8,37 @@ class SchemaArrayObjectAdditionalAdditionalPropertiesItem implements \JsonSerial
 {
 
     /**
-     * @var int
+     * @var int|null
      */
-    protected $x;
+    protected ?int $x = null;
 
     /**
      * @param int $x
      * 
      * @return void
      */
-    public function setX(int $x)
+    public function setX(int $x): void
     {
         $this->x = $x;
     }
+
 
     /**
      * 
      * @return int
      */
-    public function getX() : int
+    public function getX(): int
     {
         return $this->x;
     }
+
 
     /**
      * @param array $array
      * 
      * @return void
      */
-    public function fromArray(array $array)
+    public function fromArray(array $array): void
     {
         foreach ($array as $propertyName => $propertyValue) {
             switch ($propertyName) {
@@ -47,14 +49,16 @@ class SchemaArrayObjectAdditionalAdditionalPropertiesItem implements \JsonSerial
         }
     }
 
+
     /**
      * 
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             "x" => $this->x,
         ];
     }
+
 }

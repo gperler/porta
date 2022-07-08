@@ -8,107 +8,115 @@ class SchemaNoTypes implements \JsonSerializable
 {
 
     /**
-     * @var mixed
+     * @var mixed|null
      */
-    protected $bool;
+    protected  $bool = null;
 
     /**
-     * @var array
+     * @var array|null
      */
-    protected $array;
+    protected ?array $array = null;
 
     /**
-     * @var array
+     * @var array|null
      */
-    protected $nullableArray;
+    protected ?array $nullableArray = null;
 
     /**
-     * @var array
+     * @var array|null
      */
-    protected $object;
+    protected ?array $object = null;
 
     /**
      * @param mixed $bool
      * 
      * @return void
      */
-    public function setBool($bool)
+    public function setBool($bool): void
     {
         $this->bool = $bool;
     }
+
 
     /**
      * 
      * @return mixed
      */
-    public function getBool()
+    public function getBool(): mixed
     {
         return $this->bool;
     }
+
 
     /**
      * @param array $array
      * 
      * @return void
      */
-    public function setArray(array $array)
+    public function setArray(array $array): void
     {
         $this->array = $array;
     }
+
 
     /**
      * 
      * @return array
      */
-    public function getArray() : array
+    public function getArray(): array
     {
         return $this->array;
     }
+
 
     /**
      * @param array|null $nullableArray
      * 
      * @return void
      */
-    public function setNullableArray(?array $nullableArray)
+    public function setNullableArray(?array $nullableArray): void
     {
         $this->nullableArray = $nullableArray;
     }
+
 
     /**
      * 
      * @return array|null
      */
-    public function getNullableArray() : ?array
+    public function getNullableArray(): ?array
     {
         return $this->nullableArray;
     }
+
 
     /**
      * @param array $object
      * 
      * @return void
      */
-    public function setObject(array $object)
+    public function setObject(array $object): void
     {
         $this->object = $object;
     }
+
 
     /**
      * 
      * @return array
      */
-    public function getObject() : array
+    public function getObject(): array
     {
         return $this->object;
     }
+
 
     /**
      * @param array $array
      * 
      * @return void
      */
-    public function fromArray(array $array)
+    public function fromArray(array $array): void
     {
         foreach ($array as $propertyName => $propertyValue) {
             switch ($propertyName) {
@@ -128,11 +136,12 @@ class SchemaNoTypes implements \JsonSerializable
         }
     }
 
+
     /**
      * 
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             "bool" => $this->bool,
@@ -141,4 +150,5 @@ class SchemaNoTypes implements \JsonSerializable
             "object" => $this->object,
         ];
     }
+
 }

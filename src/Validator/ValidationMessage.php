@@ -28,7 +28,7 @@ class ValidationMessage implements JsonSerializable
         $message = str_replace(self::MACRO_PATH, $path, $message);
 
         $lastItem = $propertyPath[sizeof($propertyPath) - 1];
-        return str_replace(self::MACRO_PROPERTY, $lastItem, $message);
+        return str_replace(self::MACRO_PROPERTY, strval($lastItem), $message);
     }
 
 

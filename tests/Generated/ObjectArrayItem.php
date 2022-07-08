@@ -8,59 +8,63 @@ class ObjectArrayItem implements \JsonSerializable
 {
 
     /**
-     * @var int
+     * @var int|null
      */
-    protected $x;
+    protected ?int $x = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    protected $y;
+    protected ?int $y = null;
 
     /**
      * @param int $x
      * 
      * @return void
      */
-    public function setX(int $x)
+    public function setX(int $x): void
     {
         $this->x = $x;
     }
+
 
     /**
      * 
      * @return int
      */
-    public function getX() : int
+    public function getX(): int
     {
         return $this->x;
     }
+
 
     /**
      * @param int $y
      * 
      * @return void
      */
-    public function setY(int $y)
+    public function setY(int $y): void
     {
         $this->y = $y;
     }
+
 
     /**
      * 
      * @return int
      */
-    public function getY() : int
+    public function getY(): int
     {
         return $this->y;
     }
+
 
     /**
      * @param array $array
      * 
      * @return void
      */
-    public function fromArray(array $array)
+    public function fromArray(array $array): void
     {
         foreach ($array as $propertyName => $propertyValue) {
             switch ($propertyName) {
@@ -74,15 +78,17 @@ class ObjectArrayItem implements \JsonSerializable
         }
     }
 
+
     /**
      * 
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             "x" => $this->x,
             "y" => $this->y,
         ];
     }
+
 }

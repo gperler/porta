@@ -48,7 +48,7 @@ class Callback extends ArraySerializableModel
     /**
      * @return array|PathItem[]|null
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         if ($this->paths === null) {
             return null;

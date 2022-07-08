@@ -108,7 +108,7 @@ class ArraySerializableModel implements ArraySerializable
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $array = [];
         foreach ($this->propertyList as $property) {

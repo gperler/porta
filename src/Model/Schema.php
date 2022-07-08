@@ -291,7 +291,7 @@ class Schema extends ArraySerializableModel
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $array = parent::jsonSerialize();
         $array["additionalProperties"] = ($this->additionalProperties instanceof Schema) ? $this->additionalProperties->jsonSerialize() : $this->additionalProperties;

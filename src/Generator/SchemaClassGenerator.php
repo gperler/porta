@@ -81,7 +81,7 @@ class SchemaClassGenerator
      * @param string $namespace
      * @param string $className
      */
-    private function prepareClassGenerator(string $namespace, string $className)
+    private function prepareClassGenerator(string $namespace, string $className): void
     {
         $this->classGenerator = new ClassGenerator($namespace . '\\' . $className);
         $this->classGenerator->addImplements(JsonSerializable::class);
@@ -109,7 +109,7 @@ class SchemaClassGenerator
     /**
      * @param ClassProperty $classProperty
      */
-    private function addProperty(ClassProperty $classProperty)
+    private function addProperty(ClassProperty $classProperty): void
     {
         $this->classGenerator->addProtectedProperty($classProperty->getName(), $classProperty->getType(), 'null');
     }

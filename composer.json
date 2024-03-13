@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "*",
+        "php": ">=8.1",
         "ext-json": "*",
         "symfony/yaml": "*",
         "gm314/nitria": "*"

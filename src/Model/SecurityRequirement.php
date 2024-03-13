@@ -33,7 +33,7 @@ class SecurityRequirement extends ArraySerializableModel
     /**
      * @return array|PathItem[]|null
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->requirements;
     }

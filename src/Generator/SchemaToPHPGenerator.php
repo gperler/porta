@@ -61,7 +61,7 @@ class SchemaToPHPGenerator
      *
      * @throws InvalidReferenceException
      */
-    public function generateSchema(string $namespace, string $className, Schema $schema)
+    public function generateSchema(string $namespace, string $className, Schema $schema): void
     {
         if (!$schema->isObject() || $schema->isReference()) {
             return;

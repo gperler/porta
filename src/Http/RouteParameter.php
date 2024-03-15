@@ -49,7 +49,7 @@ class RouteParameter implements JsonSerializable
 
 
     /**
-     * @return string[]
+     * @return mixed
      */
     public function jsonSerialize(): mixed
     {
